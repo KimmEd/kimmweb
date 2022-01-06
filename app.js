@@ -8,9 +8,6 @@ const express = require('express'),
 	bodyParser = require('body-parser'),
 	multer = require('multer'),
 	upload = multer(),
-	indexRouter = require('./routes/index'),
-	cultureRouter = require('./routes/cultures'),
-	accountRouter = require('./routes/account'),
 	logger = require('./logger');
 
 // Setup view engine, middleware, and routes
@@ -23,3 +20,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.all('*', (req, res) => {
+	res.status(404).send('404 Not Found');
+});
+
+app.listen(5000, () => {
+	logger.info('Server is running on http://localhost:6000');
+});
