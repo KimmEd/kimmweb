@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "devStart": "nodemon app.js | pino-pretty -i time,hostname,pid,level"
+    "devStart": "nodemon app.js | pino-pretty -i pid,hostname -t yyyy-mm-dd HH:MM:ss"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,9 @@
   },
   "devDependencies": {
     "dotenv": "^10.0.0",
-    "nodemon": "^2.0.15"
+    "eslint": "^8.9.0",
+    "nodemon": "^2.0.15",
+    "pino": "^7.8.0",
+    "pino-pretty": "^7.5.1"
   }
 }
