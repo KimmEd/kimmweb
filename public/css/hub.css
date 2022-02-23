@@ -1,0 +1,42 @@
+.sidebar {
+    height: 100%;
+    width: 200px;
+    background-color: fff;
+    position: fixed!important;
+    overflow: auto;
+}
+
+.button {
+    align-items: flex-start;
+    text-indent: 0px;
+    text-shadow: none;
+    overflow: hidden;
+    vertical-align: middle;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button:hover {
+    color: rgb(0, 0, 0) !important;
+    background-color: rgb(204,204,204) !important;
+}
+
+.bar-block, .bar-item {
+    width: 100%;
+    display: block;
+    padding: 8px 16px;
+    text-align: left;
+    border: none;
+    white-space: normal;
+    float: none;
+    outline: 0;
+}
+
+.teal {
+    color: white !important;
+    background-color: teal !important;
+}
+
+#main {
+    transition: margin-left 0.4s ease 0s;
+}

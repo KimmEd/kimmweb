@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "devStart": "nodemon app.js | pino-pretty -i pid,hostname -t yyyy-mm-dd HH:MM:ss"
+    "devStart": "nodemon app.js | pino-pretty -i pid,hostname -t yyyy-mm-dd HH:MM:ss",
+    "noDebugger": "nodemon app.js"
   },
   "repository": {
     "type": "git",

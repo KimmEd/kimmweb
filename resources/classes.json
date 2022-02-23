@@ -1,0 +1,42 @@
+{
+    "1": {
+        "id": "1",
+        "img": "/img/logo.png",
+        "ownerAvatar": "/img/logo.png",
+        "ownerId": "69",
+        "owner": "Acrol",
+        "name": "Kimm Test",
+        "description": "foobar",
+        "lastUpdated": "19:45 02/23/2022"
+    },
+    "2": {
+        "id": "2",
+        "img": "/img/squares.jpg",
+        "ownerAvatar": "/img/logo.png",
+        "ownerId": "69",
+        "owner": "Acrol",
+        "name": "Math",
+        "description": "foobar",
+        "lastUpdated": "19:46 02/23/2022"
+    },
+    "3": {
+        "id": "3",
+        "img": "/img/nemo.jpg",
+        "ownerAvatar": "/img/logo.png",
+        "ownerId": "69",
+        "owner": "Acrol",
+        "name": "Biology",
+        "description": "foobar",
+        "lastUpdated": "19:47 02/23/2022"
+    },
+    "4": {
+        "id": "4",
+        "img": "/img/monke.jpg",
+        "ownerAvatar": "/img/logo.png",
+        "ownerId": "69",
+        "owner": "Acrol",
+        "name": "Human History",
+        "description": "foobar",
+        "lastUpdated": "19:66 02/23/2022"
+    }
+}

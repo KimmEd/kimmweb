@@ -1,0 +1,15 @@
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/img/logo.png" />
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<% if (data) { %>
+  <% data.elements.forEach(e => { %>
+    <% if (e.type == 'css') { %>
+      <link href="<%= e.path %>" rel="stylesheet" type="text/css" />
+    <% } %> 
+  <% }) %> 
+<% } %>
+<title>
+  <%= typeof pageTitle !== 'undefined' ? pageTitle : "Kimm Education" %>
+</title>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include('../partials/head.ejs', typeof data !== 'undefined' ? data : {}) %>
+        <link rel="stylesheet" href="/css/hub.css" type="text/css" />
+	</head>
+	<body>
+		<%- include('../partials/navbar.ejs') %>
+        <%- include('../partials/sidebar.ejs') %>
+		<div class="main" id="main">
+            <% if (page == 'main') { %> 
+            <div class="teal">
+                <button class="button teal" onclick="kEdSidebarOpen()" id=""openNav>☰</button>
+                <div class="container">
+                    <h1>
+                        <%= typeof data !== 'undefined' ? data.title : 'Kimm Hub' %>
+                    </h1>
+                </div>
+            </div>
+            <% } %> 
+            <div class="container">
+                <%- body %>
+            </div>
+        </div>
+		<%- include('../partials/footer.ejs') %>
+        <script src="js/sidebar.js"></script>
+	</body>
+</html>

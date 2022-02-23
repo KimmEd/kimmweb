@@ -1,0 +1,22 @@
+<ul class="cards">
+    <% if (classes) { %>
+      <% classes.forEach(element => { %>
+          <li>
+            <a href="/hub/class/<%= element.id %>" class="card">
+              <img src="<%- element.img %>" class="card__image" alt="<%- element.name %> Image" />
+              <div class="card__overlay">
+                <div class="card__header">
+                  <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                     
+                  <img class="card__thumb" src="<%- element.ownerAvatar %>" alt="<%- element.owner %> Avatar" />
+                  <div class="card__header-text">
+                    <h3 class="card__title"><%- element.name %></h3>            
+                    <span class="card__status"><%- element.lastUpdated || 'Data not available' %></span>
+                  </div>
+                </div>
+                <p class="card__description"><%- element.description %></p>
+              </div>
+            </a>      
+          </li>
+      <% }) %>
+      <% } %>
+  </ul>

@@ -1,0 +1,56 @@
+<div class="container center">
+  <form action="/hub/login" method="post" class="form" autocomplete="off">
+    <div class="form-group">
+      <!-- <label for="username">Username</label> -->
+      <input
+        class="form-control rounded-input center-text"
+        type="text"
+        name="username"
+        id="usernameInput"
+        placeholder="Username"
+        required
+        focus
+      />
+    </div>
+    <% if (register) { %>
+        <div class="form-group">
+        <!-- <label for="email">Email</label> -->
+        <input
+            class="form-control rounded-input center-text"
+            type="email"
+            name="email"
+            id="emailInput"
+            placeholder="Email"
+            required
+        />
+        </div>
+    <% } %>
+    <div class="form-group">
+      <!-- <label for="password">Password</label> -->
+      <input
+        class="form-control rounded-input center-text"
+        type="password"
+        name="password"
+        id="passwordInput"
+        placeholder="Password"
+        required
+      />
+    </div>
+    <% if (register) { %> 
+    <div class="form-group">
+      <input
+        class="form-control rounded-input center-text"
+        type="password"
+        name="confirmPassword"
+        id="confirmPasswordInput"
+        placeholder="Confirm Password"
+        required
+      />
+    </div>
+    <% } %> 
+    <div class="form-group">
+      <input type="submit" name="register" />
+      <input type="reset" />
+    </div>
+  </form>
+</div>
