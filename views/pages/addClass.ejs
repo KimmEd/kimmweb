@@ -1,0 +1,51 @@
+<div class="container center">
+  <form action="/hub/class/add" method="post" class="form" autocomplete="off">
+    <div class="form-group">
+        <label for="name" hidden>Class Name</label>
+      <input
+        class="form-control rounded-input center-text"
+        type="text"
+        name="name"
+        id="nameInput"
+        placeholder="Class Name"
+        required
+        focus
+      />
+    </div>
+    <div class="form-group">
+        <label for="description" hidden>Class Description</label>
+      <input
+        class="form-control rounded-input center-text"
+        type="text"
+        name="description"
+        id="descriptionInput"
+        placeholder="Class Description"
+        required
+      />
+    </div>
+    <div class="form-group">
+        <label for="image" hidden>Image</label>
+      <input
+        class="form-control rounded-input center-text"
+        type="url"
+        name="image"
+        id="imageInput"
+        placeholder="Image Url"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label class="input-label" for="students">Students <span style="font-size: smaller;">Emails space-separated</span></label>
+      <textarea
+        class="form-control rounded-input center-text"
+        name="students"
+        id="students"
+        placeholder="Students"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit">Register</button>
+      <input type="reset" />
+    </div>
+  </form>
+</div>

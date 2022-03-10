@@ -2,6 +2,7 @@ const express = require("express"),
   router = express.Router(),
   expressLayouts = require("express-ejs-layouts");
 
+const {checkAuthenticated} = require('../checkAuth');
 router.use(expressLayouts);
 
 router.get("/", (req, res) => {
