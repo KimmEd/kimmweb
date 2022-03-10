@@ -5,12 +5,17 @@
 	</head>
 	<body class="bg-secondary">
 		<%- include('../partials/navbar.ejs') %>
-		<% if (messages.error) { %>
-			<div class="alert alert-danger" role="alert">
+		<% if (messages.error ) { %>
+			<div class="bar error" role="alert">
 				<%-  messages.error %>
 			</div>
 		<% } %>
-		<div class="container-fluid p-5"><%- body %></div>
+		<% if (typeof error !== 'undefined') { %>
+			<div class="bar error" role="alert">
+				<%-  error %>
+			</div>
+		<% } %>
+		<div class="container"><%- body %></div>
 		<%- include('../partials/footer.ejs') %>
 	</body>
 </html>

@@ -1,15 +1,26 @@
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="<%= typeof description !== 'undefined' ? description : 'Kimm is an educational platform inspiring students to find what they like.' %>"
+/>
+<meta property="og:title" content="<%= typeof pageTitle !== 'undefined' ?
+pageTitle : "Kimm Education" %>" />
+<meta
+  property="og:description"
+  content="<%= typeof description !== 'undefined' ? description : 'Kimm is an educational platform inspiring students to find what they like.' %>"
+/>
+<meta property="og:image" content="https://i.imgur.com/0L5zVXQ.png?1" />
+<% if (typeof og !== 'undefined') { %> <meta property="og:url" content="<%=
+typeof og.url !== 'undefined' ? og.url : "" %>" /> <meta property="og:type"
+content="<%= typeof og.type !== 'undefined' ? og.type : "website" %>" /> <% } %>
 <link rel="icon" href="/img/logo.png" />
 <link href="/css/style.css" rel="stylesheet" type="text/css" />
-<% if (data) { %>
-  <% data.elements.forEach(e => { %>
-    <% if (e.type == 'css') { %>
-      <link href="<%= e.path %>" rel="stylesheet" type="text/css" />
-    <% } %> 
-  <% }) %> 
-<% } %>
+<% if (data) { %> <% data.elements.forEach(e => { %> <% if (e.type == 'css') {
+%>
+<link href="<%= e.path %>" rel="stylesheet" type="text/css" />
+<% } %> <% }) %> <% } %>
 <title>
   <%= typeof pageTitle !== 'undefined' ? pageTitle : "Kimm Education" %>
 </title>
