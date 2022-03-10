@@ -7,7 +7,6 @@ const express = require("express"),
   path = require("path"),
   bodyParser = require("body-parser"),
   multer = require("multer"),
-  bcrypt = require("bcrypt"),
   passport = require("passport"),
   flash = require("express-flash"),
   session = require("express-session");

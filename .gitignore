@@ -106,3 +106,6 @@ dist
 # Prettier vscode
 .prettierrc.*
 .env
+
+# VsCode extensions
+.vscode/
