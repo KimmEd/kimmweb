@@ -6,8 +6,8 @@ const express = require('express'),
 
 const { checkNotAuthenticated, checkAuthenticated } = require('../checkAuth');
 
-router.get('/', checkAuthenticated, (req, res) => {
-	res.render('pages/index', { name: req.user.username });
+router.get('/', (req, res) => {
+	res.render('pages/index');
 });
 
 router.get('/login', checkNotAuthenticated, (req, res) => {

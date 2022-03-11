@@ -58,13 +58,17 @@ router.post('/add', async (req, res) => {
 	}
 });
 
-router.get('/class/:id', (req, res) => {
+router.get('/id/:id', (req, res) => {
 	const { id } = req.params;
 	Class.findById(id, (err, classObj) => {
 		if (err) {
 			console.log(err);
 			return;
 		}
+		// Create a classEnrollment property of Class with the information of the students enrolled in the class
+		classObj.classEnrollment = classObj.students.map(studentId => {
+			return User.findById(studentId);
+		});
 		res.render('pages/class', {
 			layout: 'layouts/hubLayout',
 			data: {

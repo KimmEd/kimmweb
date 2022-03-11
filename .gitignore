@@ -109,3 +109,6 @@ dist
 
 # Code Spell Checker
 .vscode/
+
+# Test dir
+test/

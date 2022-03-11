@@ -1,7 +1,7 @@
 <ul class="cards">
   <% if (classes) { %> <% classes.forEach(element => { %>
   <li>
-    <a href="/hub/class/<%= element._id %>" class="card">
+    <a href="/hub/class/id/<%= element._id %>" class="card">
       <img
         src="<%- element.classImage %>"
         class="card__image"
@@ -14,8 +14,8 @@
           </svg>
           <img
             class="card__thumb"
-            src="<%- element.ownerAvatar %>"
-            alt="<%- element.owner %> Avatar"
+            src="<%- element.owner.avatar %>"
+            alt="<%- element.owner.username %> Avatar"
           />
           <div class="card__header-text">
             <h3 class="card__title"><%- element.className %></h3>
@@ -34,3 +34,18 @@
   </li>
   <% } %>
 </ul>
+
+<a href="/hub/class/add" class="float">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="60"
+    height="60"
+    fill="currentColor"
+    class="bi bi-plus"
+    viewBox="0 0 16 16"
+  >
+    <path
+      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+    />
+  </svg>
+</a>

@@ -1,0 +1,64 @@
+<div class="container">
+  <% if (!class) { %>
+  <h1>Class not found</h1>
+  <% } else { %>
+  <h1><%= class.className %></h1>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Class Details</h2>
+      <table class="table table-striped">
+        <tr>
+          <th>Class Name</th>
+          <td><%= class.className %></td>
+        </tr>
+        <tr>
+          <th>Class Number</th>
+          <td><%= class._id %></td>
+        </tr>
+        <tr>
+          <th>Class Description</th>
+          <td><%= class.classDescription %></td>
+        </tr>
+        <tr>
+          <th>Class Instructor</th>
+          <td><%= class.classTeacher %></td>
+        </tr>
+        <tr>
+          <th>Class Time</th>
+          <td><%= class.classTime %></td>
+        </tr>
+        <tr>
+          <th>Class Days</th>
+          <td><%= class.classDays %></td>
+        </tr>
+        <tr>
+          <th>Class Capacity</th>
+          <td><%= class.classCapacity %></td>
+        </tr>
+        <tr>
+          <th>Class Enrolled</th>
+          <td><%= class.classEnrolled %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <h2>Class Enrollment</h2>
+      <table class="table table-striped">
+        <tr>
+          <th>Student Name</th>
+          <th>Student Email</th>
+          <th>Student Phone</th>
+        </tr>
+        <% for (let i = 0; i < class.classEnrollment.length; i++) { %>
+        <tr>
+          <td><%= class.classEnrollment[i].username %></td>
+          <td><%= class.classEnrollment[i].email %></td>
+          <td><%= class.classEnrollment[i].avatar %></td>
+        </tr>
+        <% } %>
+      </table>
+    </div>
+  </div>
+
+  <% } %>
+</div>
