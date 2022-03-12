@@ -1,43 +1,43 @@
 <div class="container">
-  <% if (!class) { %>
+  <% if (!classroom) { %>
   <h1>Class not found</h1>
   <% } else { %>
-  <h1><%= class.className %></h1>
+  <h1><%= classroom.className %></h1>
   <div class="row">
     <div class="col-md-6">
       <h2>Class Details</h2>
       <table class="table table-striped">
         <tr>
           <th>Class Name</th>
-          <td><%= class.className %></td>
+          <td><%= classroom.className %></td>
         </tr>
         <tr>
           <th>Class Number</th>
-          <td><%= class._id %></td>
+          <td><%= classroom._id %></td>
         </tr>
         <tr>
           <th>Class Description</th>
-          <td><%= class.classDescription %></td>
+          <td><%= classroom.classDescription %></td>
         </tr>
         <tr>
           <th>Class Instructor</th>
-          <td><%= class.classTeacher %></td>
+          <td><%= classroom.classTeacher %></td>
         </tr>
         <tr>
           <th>Class Time</th>
-          <td><%= class.classTime %></td>
+          <td><%= classroom.classTime %></td>
         </tr>
         <tr>
           <th>Class Days</th>
-          <td><%= class.classDays %></td>
+          <td><%= classroom.classDays %></td>
         </tr>
         <tr>
           <th>Class Capacity</th>
-          <td><%= class.classCapacity %></td>
+          <td><%= classroom.classCapacity %></td>
         </tr>
         <tr>
           <th>Class Enrolled</th>
-          <td><%= class.classEnrolled %></td>
+          <td><%= classroom.classEnrolled %></td>
         </tr>
       </table>
     </div>
@@ -49,11 +49,11 @@
           <th>Student Email</th>
           <th>Student Phone</th>
         </tr>
-        <% for (let i = 0; i < class.classEnrollment.length; i++) { %>
+        <% for (let i = 0; i < classroom.classEnrollment.length; i++) { %>
         <tr>
-          <td><%= class.classEnrollment[i].username %></td>
-          <td><%= class.classEnrollment[i].email %></td>
-          <td><%= class.classEnrollment[i].avatar %></td>
+          <td><%= classroom.classEnrollment[i].username %></td>
+          <td><%= classroom.classEnrollment[i].email %></td>
+          <td><%= classroom.classEnrollment[i].avatar %></td>
         </tr>
         <% } %>
       </table>

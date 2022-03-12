@@ -37,7 +37,6 @@ router.get("/classes", (req, res) => {
           };
         })
       );
-      console.log(trueClass);
       res.render("pages/classMenu", {
         layout: "layouts/hubLayout",
         data: {
@@ -54,10 +53,6 @@ router.get("/classes", (req, res) => {
   );
 });
 
-router.get("/test", (req, res) => {
-  console.log(req.user);
-  res.sendStatus(200);
-});
 router.use("/class", require("./class"));
 
 module.exports = router;

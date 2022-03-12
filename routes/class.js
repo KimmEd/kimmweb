@@ -76,7 +76,7 @@ router.get('/id/:id', (req, res) => {
 				title: `${classObj.name} - Kimm`,
 			},
 			page: 'class',
-			class: classObj,
+			classroom: classObj,
 		});
 	});
 });
