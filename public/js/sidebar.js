@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 function kEdSidebarOpen() {
   document.getElementById("main").style.marginLeft = "25%";
   document.getElementById("mySidebar").style.width = "25%";

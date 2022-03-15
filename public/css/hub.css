@@ -1,12 +1,13 @@
 .sidebar {
     height: 100%;
     width: 200px;
-    background-color: fff;
+    background-color: #fff;
     position: fixed!important;
     overflow: auto;
+    transition: display 0.4s ease 0s;
 }
 
-.button {
+.btn-hub {
     align-items: flex-start;
     text-indent: 0px;
     text-shadow: none;
@@ -16,7 +17,7 @@
     cursor: pointer;
 }
 
-.button:hover {
+.btn-hub:hover {
     color: rgb(0, 0, 0) !important;
     background-color: rgb(204,204,204) !important;
 }
@@ -33,10 +34,61 @@
 }
 
 .teal {
-    color: white !important;
-    background-color: teal !important;
+    color: white;
+    background-color: teal;
 }
 
 #main {
     transition: margin-left 0.4s ease 0s;
 }
+
+/* Header/Blog Title */
+.header {
+    padding: 30px;
+    font-size: 40px;
+    text-align: center;
+    background: white;
+  }
+  
+  /* Create two unequal columns that floats next to each other */
+  /* Left column */
+  .leftcolumn {
+    float: left;
+    width: 75%;
+  }
+  
+  /* Right column */
+  .rightcolumn {
+    float: left;
+    width: 25%;
+    padding-left: 20px;
+  }
+  
+  /* Fake image */
+  .fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 20px;
+  }
+  
+  /* Add a card effect for articles */
+  .card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {
+      width: 100%;
+      padding: 0;
+    }
+  }

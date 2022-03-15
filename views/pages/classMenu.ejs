@@ -1,39 +1,43 @@
-<ul class="cards">
-  <% if (classes) { %> <% classes.forEach(element => { %>
-  <li>
-    <a href="/hub/class/id/<%= element._id %>" class="card">
-      <img
-        src="<%- element.classImage %>"
-        class="card__image"
-        alt="<%- element.className %> Image"
-      />
-      <div class="card__overlay">
-        <div class="card__header">
-          <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
-            <path />
-          </svg>
+<section>
+  <div itemscope class="container">
+    <ul class="cards">
+      <% if (classes) { %> <% classes.forEach(element => { %>
+      <li>
+        <a href="/hub/class/id/<%= element._id %>" class="card">
           <img
-            class="card__thumb"
-            src="<%- element.owner.avatar %>"
-            alt="<%- element.owner.username %> Avatar"
+            src="<%- element.classImage %>"
+            class="card__image"
+            alt="<%- element.className %> Image"
           />
-          <div class="card__header-text">
-            <h3 class="card__title"><%- element.className %></h3>
-            <span class="card__status"
-              ><%- element.lastUpdated || 'Data not available' %></span
-            >
+          <div class="card__overlay">
+            <div class="card__header">
+              <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
+                <path />
+              </svg>
+              <img
+                class="card__thumb"
+                src="<%- element.owner.avatar %>"
+                alt="<%- element.owner.username %> Avatar"
+              />
+              <div class="card__header-text">
+                <h3 class="card__title"><%- element.className %></h3>
+                <span class="card__status"
+                  ><%- element.lastUpdated || 'Data not available' %></span
+                >
+              </div>
+            </div>
+            <p class="card__description"><%- element.classDescription %></p>
           </div>
-        </div>
-        <p class="card__description"><%- element.classDescription %></p>
-      </div>
-    </a>
-  </li>
-  <% }) %> <% } else { %>
-  <li>
-    <p>No classes found</p>
-  </li>
-  <% } %>
-</ul>
+        </a>
+      </li>
+      <% }) %> <% } else { %>
+      <li>
+        <p>No classes found</p>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+</section>
 
 <a href="/hub/class/add" class="float">
   <svg

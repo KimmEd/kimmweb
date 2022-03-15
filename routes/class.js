@@ -24,7 +24,7 @@ router.get('/add', (req, res) => {
 	res.render('pages/addClass', {
 		layout: 'layouts/hubLayout',
 		data: {
-			elements: [{ type: 'css', path: 'css/sidebar.css' }],
+			elements: [],
 			title: 'Add a Class - Kimm',
 		},
 		page: 'addClass',
@@ -72,7 +72,7 @@ router.get('/id/:id', (req, res) => {
 		res.render('pages/class', {
 			layout: 'layouts/hubLayout',
 			data: {
-				elements: [{ type: 'css', path: 'css/sidebar.css' }],
+				elements: [],
 				title: `${classObj.name} - Kimm`,
 			},
 			page: 'class',

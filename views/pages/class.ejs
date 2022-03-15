@@ -1,64 +1,107 @@
-<div class="container">
-  <% if (!classroom) { %>
-  <h1>Class not found</h1>
-  <% } else { %>
-  <h1><%= classroom.className %></h1>
-  <div class="row">
-    <div class="col-md-6">
-      <h2>Class Details</h2>
-      <table class="table table-striped">
-        <tr>
-          <th>Class Name</th>
-          <td><%= classroom.className %></td>
-        </tr>
-        <tr>
-          <th>Class Number</th>
-          <td><%= classroom._id %></td>
-        </tr>
-        <tr>
-          <th>Class Description</th>
-          <td><%= classroom.classDescription %></td>
-        </tr>
-        <tr>
-          <th>Class Instructor</th>
-          <td><%= classroom.classTeacher %></td>
-        </tr>
-        <tr>
-          <th>Class Time</th>
-          <td><%= classroom.classTime %></td>
-        </tr>
-        <tr>
-          <th>Class Days</th>
-          <td><%= classroom.classDays %></td>
-        </tr>
-        <tr>
-          <th>Class Capacity</th>
-          <td><%= classroom.classCapacity %></td>
-        </tr>
-        <tr>
-          <th>Class Enrolled</th>
-          <td><%= classroom.classEnrolled %></td>
-        </tr>
-      </table>
-    </div>
-    <div class="col-md-6">
-      <h2>Class Enrollment</h2>
-      <table class="table table-striped">
-        <tr>
-          <th>Student Name</th>
-          <th>Student Email</th>
-          <th>Student Phone</th>
-        </tr>
-        <% for (let i = 0; i < classroom.classEnrollment.length; i++) { %>
-        <tr>
-          <td><%= classroom.classEnrollment[i].username %></td>
-          <td><%= classroom.classEnrollment[i].email %></td>
-          <td><%= classroom.classEnrollment[i].avatar %></td>
-        </tr>
-        <% } %>
-      </table>
-    </div>
+<% if (!classroom) { %>
+<h1>Class not found</h1>
+<% } else { %>
+<section id="content">
+  <div class="header">
+    <h2>Blog Name</h2>
   </div>
 
-  <% } %>
-</div>
+  <div class="row">
+    <div class="leftcolumn">
+      <div class="card">
+        <h2>TITLE HEADING</h2>
+        <h5>Title description, Dec 7, 2017</h5>
+        <div class="fakeimg" style="height: 200px">Image</div>
+        <p>Some text..</p>
+      </div>
+      <div class="card">
+        <h2>TITLE HEADING</h2>
+        <h5>Title description, Sep 2, 2017</h5>
+        <div class="fakeimg" style="height: 200px">Image</div>
+        <p>Some text..</p>
+      </div>
+    </div>
+    <div class="rightcolumn">
+      <div class="card">
+        <h2>About Me</h2>
+        <div class="fakeimg" style="height: 100px">Image</div>
+        <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+      </div>
+      <div class="card">
+        <h3>Popular Post</h3>
+        <div class="fakeimg">Image</div>
+        <br />
+        <div class="fakeimg">Image</div>
+        <br />
+        <div class="fakeimg">Image</div>
+      </div>
+      <div class="card">
+        <h3>Follow Me</h3>
+        <p>Some text..</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="classroomAbout hidden" hidden>
+  <div class="container light-theme">
+    <h1><%= classroom.className %></h1>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Class Details</h2>
+        <table class="table table-striped">
+          <tr>
+            <th>Class Name</th>
+            <td><%= classroom.className %></td>
+          </tr>
+          <tr>
+            <th>Class Number</th>
+            <td><%= classroom._id %></td>
+          </tr>
+          <tr>
+            <th>Class Description</th>
+            <td><%= classroom.classDescription %></td>
+          </tr>
+          <tr>
+            <th>Class Instructor</th>
+            <td><%= classroom.classTeacher %></td>
+          </tr>
+          <tr>
+            <th>Class Time</th>
+            <td><%= classroom.classTime %></td>
+          </tr>
+          <tr>
+            <th>Class Days</th>
+            <td><%= classroom.classDays %></td>
+          </tr>
+          <tr>
+            <th>Class Capacity</th>
+            <td><%= classroom.classCapacity %></td>
+          </tr>
+          <tr>
+            <th>Class Enrolled</th>
+            <td><%= classroom.classEnrolled %></td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h2>Class Enrollment</h2>
+        <table class="table table-striped">
+          <tr>
+            <th>Student Name</th>
+            <th>Student Email</th>
+            <th>Student Phone</th>
+          </tr>
+          <% for (let i = 0; i < classroom.classEnrollment.length; i++) { %>
+          <tr>
+            <td><%= classroom.classEnrollment[i].username %></td>
+            <td><%= classroom.classEnrollment[i].email %></td>
+            <td><%= classroom.classEnrollment[i].avatar %></td>
+          </tr>
+          <% } %>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% } %>

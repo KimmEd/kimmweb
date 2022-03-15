@@ -43,13 +43,6 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
 	}
 });
 
-router.get('/play', checkAuthenticated, (req, res) => {
-	// res.render('pages/play');
-	console.log(__dirname);
-	res.set('Content-Encoding: br');
-	res.sendFile('C:\\Users\\PcFull\\Documents\\GitHub\\kimmweb\\test\\index.html')
-	// res.sendFile(__dirname + '/public/play.html');
-})
 router.delete('/logout', checkAuthenticated, (req, res) => {
 	req.logOut();
 	res.redirect('/login');

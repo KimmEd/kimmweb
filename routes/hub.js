@@ -10,8 +10,8 @@ router.get("/", (req, res) => {
   res.render("pages/hub", {
     layout: "layouts/hubLayout",
     data: {
-      elements: [{ type: "css", path: "css/sidebar.css" }],
-      title: "Kimm",
+      elements: [],
+      title: "Kimm Hub",
     },
     page: "main",
   });
@@ -40,13 +40,9 @@ router.get("/classes", (req, res) => {
       res.render("pages/classMenu", {
         layout: "layouts/hubLayout",
         data: {
-          elements: [
-            { type: "css", path: "css/sidebar.css" },
-            { type: "css", path: "/css/classes.css" },
-          ],
+          elements: [{ type: "css", path: "/css/classes.css" }],
           title: "Kimm - Classes",
         },
-        page: "classes",
         classes: trueClass,
       });
     }
