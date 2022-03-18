@@ -40,7 +40,7 @@ router.get("/classes", (req, res) => {
       res.render("pages/classMenu", {
         layout: "layouts/hubLayout",
         data: {
-          elements: [{ type: "css", path: "/css/classes.css" }],
+          elements: [{ type: "css", path: "/css/classMenu.css" }],
           title: "Kimm - Classes",
         },
         classes: trueClass,

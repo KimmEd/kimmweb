@@ -1,25 +1,44 @@
 <% if (!classroom) { %>
 <h1>Class not found</h1>
 <% } else { %>
+<nav class="light-theme">
+  <div class="nav-wrapper">
+    <div class="container">
+      <button onclick="display('Posts')">Posts</button>
+      <button onclick="display('Members')">Members</button>
+      <button onclick="display('Settings')">Settings</button>
+    </div>
+  </div>
+</nav>
 <section id="content">
   <div class="header">
-    <h2>Blog Name</h2>
+    <h2><%- classroom.className%></h2>
   </div>
 
   <div class="row">
     <div class="leftcolumn">
+      <% if (!cards) { %>
       <div class="card">
-        <h2>TITLE HEADING</h2>
-        <h5>Title description, Dec 7, 2017</h5>
-        <div class="fakeimg" style="height: 200px">Image</div>
-        <p>Some text..</p>
+        <h2>No posts yet</h2>
       </div>
-      <div class="card">
-        <h2>TITLE HEADING</h2>
-        <h5>Title description, Sep 2, 2017</h5>
-        <div class="fakeimg" style="height: 200px">Image</div>
-        <p>Some text..</p>
-      </div>
+      <% } else { %>
+      <% cards.filter(a => a.cardType == 'post').forEach(function(card) { %>
+        <article>
+          <div class="card">
+            <h2><%- card.content.title %></h2>
+            <h5><%- card.content.description %> </h5>
+            <p><%- card.content.text %></p>
+            <div class="card-bottom">
+              <span>
+                Author here
+              </span>
+              <span>
+                <%- card.timeStamp %>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    <% } %> 
     </div>
     <div class="rightcolumn">
       <div class="card">
@@ -44,14 +63,14 @@
 </section>
 <section id="classroomAbout hidden" hidden>
   <div class="container light-theme">
-    <h1><%= classroom.className %></h1>
+    <h1><%- classroom.className %></h1>
     <div class="row">
       <div class="col-md-6">
         <h2>Class Details</h2>
         <table class="table table-striped">
           <tr>
             <th>Class Name</th>
-            <td><%= classroom.className %></td>
+            <td><%- classroom.className %></td>
           </tr>
           <tr>
             <th>Class Number</th>
@@ -91,13 +110,6 @@
             <th>Student Email</th>
             <th>Student Phone</th>
           </tr>
-          <% for (let i = 0; i < classroom.classEnrollment.length; i++) { %>
-          <tr>
-            <td><%= classroom.classEnrollment[i].username %></td>
-            <td><%= classroom.classEnrollment[i].email %></td>
-            <td><%= classroom.classEnrollment[i].avatar %></td>
-          </tr>
-          <% } %>
         </table>
       </div>
     </div>
@@ -105,3 +117,18 @@
 </section>
 
 <% } %>
+
+<a href="/hub/class/id/<%- classroom._id %>/post" class="float">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="60"
+    height="60"
+    fill="currentColor"
+    class="bi bi-plus"
+    viewBox="0 0 16 16"
+  >
+    <path
+      d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+    />
+  </svg>
+</a>

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose"),
   classSchema = new mongoose.Schema({
     className: {
-      type: String,
+      type: mongoose.SchemaTypes.String,
       required: true,
       minlength: [
         5,
@@ -14,7 +14,7 @@ const mongoose = require("mongoose"),
       alias: "name",
     },
     classDescription: {
-      type: String,
+      type: mongoose.SchemaTypes.String,
       required: true,
       minlength: [
         5,
@@ -27,7 +27,7 @@ const mongoose = require("mongoose"),
       alias: "description",
     },
     classImage: {
-      type: String,
+      type: mongoose.SchemaTypes.String,
       default:
         "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png",
       maxlength: 255,
@@ -52,43 +52,42 @@ const mongoose = require("mongoose"),
       },
     },
     classTime: {
-      type: [Date],
+      type: [mongoose.SchemaTypes.Date],
       alias: "time",
     },
     classLocation: {
-      type: String,
+      type: mongoose.SchemaTypes.String,
       alias: "location",
     },
     classCapacity: {
-      type: Number,
+      type: mongoose.SchemaTypes.Number,
       required: [true, "Class capacity is required"],
       alias: "capacity",
       default: 10,
     },
-    classActive: {
-      type: Boolean,
-      default: true,
-      alias: "active",
-    },
     classDeleted: {
-      type: Boolean,
+      type: mongoose.SchemaTypes.Boolean,
       default: false,
       alias: "deleted",
     },
     classCreatedAt: {
-      type: Date,
+      type: mongoose.SchemaTypes.Date,
       default: Date.now,
       alias: "createdAt",
     },
     classUpdatedAt: {
-      type: Date,
+      type: mongoose.SchemaTypes.Date,
       default: Date.now,
       alias: "updatedAt",
     },
     classDays: {
-      type: [String],
+      type: [mongoose.SchemaTypes.String],
       alias: "days",
     },
+  });
+
+  classSchema.virtual('classStudentsCount').get(function() {
+    return this.classStudents.length;
   });
 
 module.exports = mongoose.model("Classes", classSchema);

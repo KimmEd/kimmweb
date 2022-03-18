@@ -22,6 +22,11 @@
   <body>
     <%- include('../partials/navbar.ejs') %> <%-
     include('../partials/sidebar.ejs') %>
+		<% if (typeof error !== 'undefined') { %>
+			<div class="bar error" role="alert">
+				<%-  error %>
+			</div>
+		<% } %>
     <div class="main" id="main">
       <div class="teal">
         <button class="btn-hub teal" onclick="kEdSidebarOpen()" id="openNav">

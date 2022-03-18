@@ -1,0 +1,36 @@
+<section class="margin-400">
+  <div class="container center">
+    <form action="/hub/class/id/<%- id %>/post" method="post" class="form" autocomplete="off">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          class="form-control rounded-input center-text"
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Post Title"
+          required
+          autofocus
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          class="form-control rounded-input center-text"
+          type="text"
+          name="description"
+          id="description"
+          placeholder="Description"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <textarea name="cardText" id="cardText" cols="30" rows="10"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit">Register</button>
+        <input type="reset" />
+      </div>
+    </form>
+  </div>
+</section>
