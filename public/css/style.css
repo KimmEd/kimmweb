@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
   padding: 0;
+  transition: background-color 0.5s ease;
 }
 
 *:focus {
@@ -145,7 +146,7 @@ button {
   color: #fff;
   font-weight: 600;
   border-radius: 5px;
-  width: 100%;
+  /* width: 100%; */
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
@@ -176,6 +177,15 @@ div .center {
 
 header div {
   display: inline;
+}
+
+.form {
+  width: 100%;
+  max-width: 780px;
+  background: #fff;
+  margin: 0 auto;
+  padding: 15px;
+  box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.3);
 }
 
 .form-group {
@@ -239,6 +249,8 @@ section {
   width: 100%;
   text-align: center;
   min-height: 80vh;
+  transition: display 0.5s ease 0s;
+  padding: 3em 0;
 }
 
 .footer-distributed {
@@ -351,4 +363,13 @@ section {
   color: #fff;
   background-color: #6c757d;
   border-color: #6c757d;
+}
+
+.active {
+  background-color: #82D9B2;
+  transition: background-color 0.5s ease-in-out;
+}
+
+.active:hover {
+  background-color: #63CF9E;
 }

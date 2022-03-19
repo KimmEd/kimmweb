@@ -60,34 +60,57 @@ router.post("/add", async (req, res) => {
     res.redirect("/hub/add");
   }
 });
-
-router.get("/id/:id", (req, res) => {
-  const classCards = require("../models/classCards");
-  const { id } = req.params;
-  Class.findById(id, (err, classObj) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    classCards.findByClassId(id).exec((err, cards) => {
+router
+  .route("/id/:id")
+  .get((req, res) => {
+    const classCards = require("../models/classCards");
+    const { id } = req.params;
+    Class.findById(id, (err, classObj) => {
       if (err) {
-        console.log(err);
-        return;
+        req.flash("success", "Class not found");
+        return res.redirect("/hub");
       }
+      classCards.findByClassId(id).exec((err, cards) => {
+        if (err) {
+          req.flash("success", "No post found");
+          return;
+        }
 
-      res.render("pages/class", {
-        layout: "layouts/hubLayout",
-        data: {
-          elements: [{ type: 'css', path: '/css/class.css' }],
-          title: `${classObj.name} - Kimm`,
-        },
-        page: "class",
-        classroom: classObj,
-        cards,
+        res.render("pages/class", {
+          layout: "layouts/hubLayout",
+          data: {
+            elements: [
+              { type: "css", path: "/css/class.css" },
+              { type: "js", path: "/js/classFunctions.js" },
+            ],
+            title: `${classObj.name} - Kimm`,
+          },
+          page: "class",
+          classroom: classObj,
+          cards,
+          id: req.params.id,
+        });
       });
     });
+  })
+  .delete(async (req, res) => {
+    const { id } = req.params;
+    // Find class owner
+    try {
+      let classObj = await Class.findById(id);
+      if (classObj.classTeacher.toString() === req.user.id) {
+        await Class.findByIdAndDelete(id);
+        // Flash success message
+        req.flash("success", "Class deleted");
+        res.redirect("/hub");
+      } else {
+        res.redirect("/hub");
+      }
+    } catch (err) {
+      req.flash("success", err.message);
+      res.redirect("/hub");
+    }
   });
-});
 
 router
   .route("/id/:id/post")
@@ -112,7 +135,7 @@ router
       const ClassCard = require("../models/classCards");
       const newCard = new ClassCard({
         classId: id,
-        cardType: 'post',
+        cardType: "post",
         content: {
           title,
           description,
@@ -124,14 +147,14 @@ router
 
       newCard.save((err) => {
         if (err) {
-          console.log(err.message)
-          res.render('/hub/class/id/:id/post', {
-            layout: 'layouts/hubLayout',
+          console.log(err.message);
+          res.render("/hub/class/id/:id/post", {
+            layout: "layouts/hubLayout",
             data: {
               elements: [],
-              title: 'Class Post - Kimm',
+              title: "Class Post - Kimm",
             },
-            page: 'classPost',
+            page: "classPost",
             id: req.params.id,
             error: err.message,
           });
@@ -142,4 +165,6 @@ router
     }
   });
 
+// TODO: Add a route to submit feedback
+// TODO: Add a route to leave class
 module.exports = router;

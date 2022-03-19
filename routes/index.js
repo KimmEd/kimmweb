@@ -7,6 +7,7 @@ const express = require('express'),
 const { checkNotAuthenticated, checkAuthenticated } = require('../checkAuth');
 
 router.get('/', (req, res) => {
+	console.log(req.messages);
 	res.render('pages/index');
 });
 
@@ -47,5 +48,10 @@ router.delete('/logout', checkAuthenticated, (req, res) => {
 	req.logOut();
 	res.redirect('/login');
 });
+
+router.get('/flash', (req, res) => {
+	req.flash('info', 'This is a flash message');
+	res.redirect('/');
+})
 
 module.exports = router;

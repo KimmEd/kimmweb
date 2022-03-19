@@ -4,19 +4,61 @@
 <nav class="light-theme">
   <div class="nav-wrapper">
     <div class="container">
-      <button onclick="display('Posts')">Posts</button>
-      <button onclick="display('Members')">Members</button>
-      <button onclick="display('Settings')">Settings</button>
+      <button id="postsButton" onclick="displaySection('posts')" class="active">Posts</button>
+      <button id="membersButton" onclick="displaySection('members')">Members</button>
+      <button id="resourcesButton" onclick="displaySection('resources')">Resources</button>
+      <button id="settingsButton" onclick="displaySection('settings')">Settings</button>
     </div>
   </div>
 </nav>
-<section id="content">
+<section class="margin-400" id="createPost" hidden>
+  <div class="container center">
+    <form action="/hub/class/id/<%- id %>/post" method="post" class="form" autocomplete="off">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          class="form-control rounded-input center-text"
+          type="text"
+          name="title"
+          id="title"
+          placeholder="Post Title"
+          required
+          autofocus
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          class="form-control rounded-input center-text"
+          type="text"
+          name="description"
+          id="description"
+          placeholder="Description"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <textarea name="cardText" id="cardText" cols="30" rows="10"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit">Register</button>
+        <button class="btn" onclick="cancelPost()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section id="posts">
   <div class="header">
     <h2><%- classroom.className%></h2>
   </div>
 
   <div class="row">
     <div class="leftcolumn">
+      <!-- Special card to create a post/card -->
+      <button class="card light-theme" style="text-align:center;" onclick="displaySection('createPost')">
+        <h2>Post something to your class!</h2>
+      </button>
       <% if (!cards) { %>
       <div class="card">
         <h2>No posts yet</h2>
@@ -27,7 +69,7 @@
           <div class="card">
             <h2><%- card.content.title %></h2>
             <h5><%- card.content.description %> </h5>
-            <p><%- card.content.text %></p>
+            <p><%- card.content.cardText %></p>
             <div class="card-bottom">
               <span>
                 Author here
@@ -42,9 +84,10 @@
     </div>
     <div class="rightcolumn">
       <div class="card">
-        <h2>About Me</h2>
+        <h2>About the Class</h2>
         <div class="fakeimg" style="height: 100px">Image</div>
-        <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+        <!-- Show class description -->
+        <p><%- classroom.classDescription %></p>
       </div>
       <div class="card">
         <h3>Popular Post</h3>
@@ -58,16 +101,22 @@
         <h3>Follow Me</h3>
         <p>Some text..</p>
       </div>
+      <div class="card feedback-card">
+        <h3>Feedback</h3>
+        <div class="container">
+          <button></button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-<section id="classroomAbout hidden" hidden>
+<section id="members" hidden>
   <div class="container light-theme">
     <h1><%- classroom.className %></h1>
     <div class="row">
       <div class="col-md-6">
         <h2>Class Details</h2>
-        <table class="table table-striped">
+        <table class="table-responsive">
           <tr>
             <th>Class Name</th>
             <td><%- classroom.className %></td>
@@ -114,6 +163,14 @@
       </div>
     </div>
   </div>
+</section>
+
+<section id="settings" hidden>
+  <h1>Settings</h1>
+</section>
+
+<section id="resources" hidden>
+  <h1>Resources</h1>
 </section>
 
 <% } %>

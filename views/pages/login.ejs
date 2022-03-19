@@ -1,31 +1,34 @@
-<section class="">
+
+<section>
   <div class="container center">
-    <form action="/login" method="post" class="form" autocomplete="off">
-      <div class="form-group">
-        <input
-          class="form-control rounded-input center-text"
-          type="text"
-          name="email"
-          id="emailInput"
-          placeholder="Email"
-          required
-          autofocus
-        />
-      </div>
-      <div class="form-group">
-        <input
-          class="form-control rounded-input center-text"
-          type="password"
-          name="password"
-          id="passwordInput"
-          placeholder="Password"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <button type="submit">Login</button>
-        <input class="btn secondary-theme btn-secondary" type="reset" />
-      </div>
-    </form>
+    <div class="form">
+      <form action="/login" method="post" autocomplete="off">
+        <div class="form-group">
+          <input
+            class="form-control rounded-input center-text"
+            type="text"
+            name="email"
+            id="emailInput"
+            placeholder="Email"
+            required
+            autofocus
+          />
+        </div>
+        <div class="form-group">
+          <input
+            class="form-control rounded-input center-text"
+            type="password"
+            name="password"
+            id="passwordInput"
+            placeholder="Password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <button type="submit">Login</button>
+          <input class="btn secondary-theme btn-secondary" type="reset" />
+        </div>
+      </form>
+    </div>
   </div>
 </section>

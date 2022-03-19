@@ -22,9 +22,9 @@
   <body>
     <%- include('../partials/navbar.ejs') %> <%-
     include('../partials/sidebar.ejs') %>
-		<% if (typeof error !== 'undefined') { %>
+		<% if (messages.length > 0) { %>
 			<div class="bar error" role="alert">
-				<%-  error %>
+				<%-  messages %>
 			</div>
 		<% } %>
     <div class="main" id="main">
