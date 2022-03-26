@@ -104,7 +104,12 @@
       <div class="card feedback-card">
         <h3>Feedback</h3>
         <div class="container">
-          <button></button>
+          <form action="/hub/class/id/<%- classroom._id %>/feedback" method="post">
+            <button type="submit" name="res" value="bad" class="red"></button>
+            <button type="submit" name="res" value="not bad" class="orange"></button>
+            <button type="submit" name="res" value="fine" class="light-green"></button>
+            <button type="submit" name="res" value="good" class="green"></button>
+          </form>
         </div>
       </div>
     </div>

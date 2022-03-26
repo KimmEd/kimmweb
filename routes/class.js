@@ -155,6 +155,12 @@ router
     }
   });
 
-// TODO: Add a route to submit feedback
+router.post('/id/:id/feedback', (req, res) => {
+  const { id } = req.params;
+  console.log(req.body);
+  req.flash('success', 'Feedback submitted, value: ' + req.body.res);
+  res.redirect(`/hub/class/id/${id}`);
+});
+
 // TODO: Add a route to leave class
 module.exports = router;

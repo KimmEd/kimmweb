@@ -70,3 +70,23 @@ table {
     width: 100%;
     border-collapse: collapse;
 }
+
+.red {
+  background-color: red;
+  color: red;
+}
+
+.orange {
+  background-color: orange;
+  color: orange;
+}
+
+.light-green {
+  background-color: lightgreen;
+  color: lightgreen;
+}
+
+.green {
+  background-color: green;
+  color: green;
+}

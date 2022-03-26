@@ -48,13 +48,4 @@ router.delete('/logout', checkAuthenticated, (req, res) => {
 	res.redirect('/login');
 });
 
-router.get('/flash', (req, res) => {
-	req.flash('success', 'You are now logged in');
-	req.flash('error', 'This is a flash message')
-	req.flash('error', 'This is another flash message')
-	console.log("flashed")
-	req.flash('info', 'This is a flash message');
-	res.redirect('/');
-})
-
 module.exports = router;

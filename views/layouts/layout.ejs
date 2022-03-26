@@ -5,39 +5,7 @@
 	</head>
 	<body class="bg-secondary">
 		<%- include('../partials/navbar.ejs') %>
-		<% if (messages) { %>
-			<% for (let i = 0; i < Object.keys(messages).length; i++) { %>
-				<% if (Array.isArray(messages[Object.keys(messages)[i]])) { %>
-					<% for (let j = 0; j < messages[Object.keys(messages)[i]].length; j++) { %>
-						<div class="alert <%= Object.keys(messages)[i] %>" role="alert">
-							<input type="checkbox" id="<%= Object.keys(messages)[i] + j %>">
-							<label class="close" title="close" for="<%= Object.keys(messages)[i] + j %>">
-								<span>&times;</span>
-							</label>
-							<p class="inner">
-								<%- messages[Object.keys(messages)[i]][j] %>
-							</p>
-						</div>
-					<% } %>
-				<% } else { %>
-					<div class="alert <%= Object.keys(messages)[i] %>" role="alert">
-						<input type="checkbox" id="<%= Object.keys(messages)[i] %>">
-						<label class="close" title="close for="<%= Object.keys(messages)[i] %>">
-							<i class="icon-remove"></i>
-						</label>
-						<p class="inner">
-							<%- messages[Object.keys(messages)[i]] %>
-						</p>
-					</div>
-				<% } %> 
-
-			<% } %> 
-		<% } %>
-		<% if (typeof error !== 'undefined') { %>
-			<div class="bar error" role="alert">
-				<%-  error %>
-			</div>
-		<% } %>
+		<%- include('../partials/messages.ejs') %>
 		<div class="container"><%- body %></div>
 		<%- include('../partials/footer.ejs') %>
 	</body>
