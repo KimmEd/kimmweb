@@ -26,7 +26,7 @@ router.get("/classes", (req, res) => {
     },
     async (err, classes) => {
       if (err) {
-        console.log(err + ": " + "Error finding classes");
+        req.flash("error", "Error loading classes");
         return;
       }
       const trueClass = await Promise.all(

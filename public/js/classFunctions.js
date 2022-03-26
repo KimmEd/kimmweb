@@ -39,6 +39,5 @@ function inactive(arr) {
 function active(arr) {
   for (let i = 0; i < arr.length; i++) {
     document.getElementById(arr[i]).classList.add("active");
-    console.log(arr[i]);
   }
 }

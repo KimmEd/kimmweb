@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 router.get("/list", (req, res) => {
   Class.find({}, (err, classes) => {
     if (err) {
-      console.log(err);
+      req.flash("error", "Error loading classes");
       return;
     }
     res.render("pages/list", { classes, messages: { error: false } });
@@ -53,10 +53,10 @@ router.post("/add", async (req, res) => {
       classTeacher: req.user.id,
     });
     await classObj.save();
-    console.error(notFound);
+    req.flash("success", `The following emails were not found: ${notFound.join(' ')}`);
     res.redirect("/hub");
   } catch (err) {
-    console.error(err.message);
+    req.flash("error", "Error adding class");
     res.redirect("/hub/add");
   }
 });
@@ -128,7 +128,6 @@ router
   .post((req, res) => {
     const { id } = req.params;
     const { title, description, media, cardText: text } = req.body;
-    console.log(title, description, media, text);
     if (!(title && description && text))
       return res.redirect(`/hub/class/id/${id}/post`);
     else {
@@ -147,17 +146,8 @@ router
 
       newCard.save((err) => {
         if (err) {
-          console.log(err.message);
-          res.render("/hub/class/id/:id/post", {
-            layout: "layouts/hubLayout",
-            data: {
-              elements: [],
-              title: "Class Post - Kimm",
-            },
-            page: "classPost",
-            id: req.params.id,
-            error: err.message,
-          });
+          req.flash("error", "Error adding post");
+          return res.redirect(`/hub/class/id/${id}`);
         } else {
           res.redirect(`/hub/class/id/${id}`);
         }

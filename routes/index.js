@@ -7,8 +7,7 @@ const express = require('express'),
 const { checkNotAuthenticated, checkAuthenticated } = require('../checkAuth');
 
 router.get('/', (req, res) => {
-	console.log(req.messages);
-	res.render('pages/index');
+	res.render('pages/index', );
 });
 
 router.get('/login', checkNotAuthenticated, (req, res) => {
@@ -39,7 +38,7 @@ router.post('/register', checkNotAuthenticated, async (req, res) => {
 		await user.save();
 		res.redirect('/login');
 	} catch (err) {
-		console.error(err.message);
+		req.flash('error', err.message);
 		res.redirect('/register');
 	}
 });
@@ -50,6 +49,10 @@ router.delete('/logout', checkAuthenticated, (req, res) => {
 });
 
 router.get('/flash', (req, res) => {
+	req.flash('success', 'You are now logged in');
+	req.flash('error', 'This is a flash message')
+	req.flash('error', 'This is another flash message')
+	console.log("flashed")
 	req.flash('info', 'This is a flash message');
 	res.redirect('/');
 })
