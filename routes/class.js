@@ -69,9 +69,9 @@ router
   .get((req, res) => {
     const classCards = require("../models/classCards");
     const { id } = req.params;
-    Class.findById(id, (err, classObj) => {
-      if (err) {
-        req.flash("success", "Class not found");
+    Class.findById(id).exec((err, classObj) => {
+      if (err || !classObj) {
+        req.flash("error", "Class not found");
         return res.redirect("/hub");
       }
       classCards.findByClassId(id).exec((err, cards) => {
