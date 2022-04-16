@@ -5,13 +5,15 @@ const express = require("express"),
   app = express(),
   mongoose = require("mongoose"),
   session = require("express-session"),
-  MongoStore = require("connect-mongo");
-  
+  MongoStore = require("connect-mongo"),
+  helmet = require("helmet");
+
 mongoose.connect(process.env.DATABASE_URI, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
 db.once("open", () => console.info("Connected to Mongoose"));
 
+// Security
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -20,6 +22,8 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.DATABASE_URI }),
   })
 );
+app.use(helmet());
+app.disable("x-powered-by");
 
 const expressLayouts = require("express-ejs-layouts"),
   path = require("path"),
@@ -30,7 +34,7 @@ const expressLayouts = require("express-ejs-layouts"),
   methodOverride = require("method-override");
 
 const upload = multer(),
-  initializePassport = require("./passport-config"),
+  initializePassport = require("./middleware/passport-config"),
   indexRouter = require("./routes/index"),
   hubRouter = require("./routes/hub"),
   User = require("./models/user");

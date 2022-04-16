@@ -4,7 +4,7 @@ const express = require('express'),
 	User = require('../models/user'),
 	passport = require('passport');
 
-const { checkNotAuthenticated, checkAuthenticated } = require('../checkAuth');
+const { checkNotAuthenticated, checkAuthenticated } = require('../middleware/checkAuth');
 
 router.get('/', (req, res) => {
 	res.render('pages/index', );

@@ -175,7 +175,18 @@
 </section>
 
 <section id="resources" hidden>
-  <h1>Resources</h1>
+  <div class="container">
+    <h1>Resources</h1>
+    <!-- Flashcards -->
+    <!-- Button to create flashcard -->
+    <button class="card light-theme" style="text-align:center;" onclick="displaySection('createFlashcard')">
+      <h2>Create a flashcard</h2>
+    </button>
+    <!-- Button, redirects to site with classroom flashcards -->
+    <button class="card light-theme" style="text-align:center;" onclick="window.location.href='/hub/class/id/<%- classroom._id %>/flashcards'">
+      <h2>View flashcards</h2>
+  </div>
+
 </section>
 
 <% } %>

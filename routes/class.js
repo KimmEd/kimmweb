@@ -1,7 +1,7 @@
 const express = require("express"),
   router = express.Router();
 
-const { checkAuthenticated } = require("../checkAuth"),
+const { checkAuthenticated } = require("../middleware/checkAuth"),
   Class = require("../models/class"),
   User = require("../models/user");
 
