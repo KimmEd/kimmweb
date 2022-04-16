@@ -22,7 +22,7 @@ app.use(
     store: MongoStore.create({ mongoUrl: process.env.DATABASE_URI }),
   })
 );
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.disable("x-powered-by");
 
 const expressLayouts = require("express-ejs-layouts"),
