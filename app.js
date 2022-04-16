@@ -3,13 +3,30 @@ if (process.env.NODE_ENV !== "production") {
 }
 const express = require("express"),
   app = express(),
-  expressLayouts = require("express-ejs-layouts"),
+  mongoose = require("mongoose"),
+  session = require("express-session"),
+  MongoStore = require("connect-mongo");
+  
+mongoose.connect(process.env.DATABASE_URI, { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on("error", (error) => console.error(error));
+db.once("open", () => console.info("Connected to Mongoose"));
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.DATABASE_URI }),
+  })
+);
+
+const expressLayouts = require("express-ejs-layouts"),
   path = require("path"),
   bodyParser = require("body-parser"),
   multer = require("multer"),
   passport = require("passport"),
   flash = require("express-flash"),
-  session = require("express-session"),
   methodOverride = require("method-override");
 
 const upload = multer(),
@@ -34,13 +51,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(flash());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -49,12 +59,6 @@ app.use(function (req, res, next) {
   res.locals.login = req.isAuthenticated();
   next();
 });
-
-const mongoose = require("mongoose");
-mongoose.connect(process.env.DATABASE_URI, { useNewUrlParser: true });
-const db = mongoose.connection;
-db.on("error", (error) => console.error(error));
-db.once("open", () => console.info("Connected to Mongoose"));
 
 app.use("/", indexRouter);
 app.use("/hub", hubRouter);
