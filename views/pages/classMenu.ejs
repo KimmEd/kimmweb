@@ -5,7 +5,8 @@
       <li>
         <a href="/hub/class/id/<%= element._id %>" class="card">
           <img
-            src="<%- element.classImage %>"
+          <% //User src = element.classImage %>
+            src="/img/monke.jpg"
             class="card__image"
             alt="<%- element.className %> Image"
           />
@@ -14,9 +15,10 @@
               <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
                 <path />
               </svg>
+              <% //User src = element.owner.avatar %>
               <img
                 class="card__thumb"
-                src="<%- element.owner.avatar %>"
+                src="/img/logo.png" 
                 alt="<%- element.owner.username %> Avatar"
               />
               <div class="card__header-text">

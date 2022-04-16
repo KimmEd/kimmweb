@@ -16,10 +16,11 @@ router.get("/list", (req, res) => {
       req.flash("error", "Error loading classes");
       return;
     }
-    res.render("pages/list", { classes, messages: { error: false } });
+    res.render("pages/list", { classes });
   });
 });
 
+// TODO: Just upload and save the file to the database instead of using fucking url.
 router.get("/add", (req, res) => {
   res.render("pages/addClass", {
     layout: "layouts/hubLayout",
@@ -53,7 +54,10 @@ router.post("/add", async (req, res) => {
       classTeacher: req.user.id,
     });
     await classObj.save();
-    req.flash("success", `The following emails were not found: ${notFound.join(' ')}`);
+    req.flash(
+      "success",
+      `The following emails were not found: ${notFound.join(" ")}`
+    );
     res.redirect("/hub");
   } catch (err) {
     req.flash("error", "Error adding class");
@@ -155,10 +159,10 @@ router
     }
   });
 
-router.post('/id/:id/feedback', (req, res) => {
+router.post("/id/:id/feedback", (req, res) => {
   const { id } = req.params;
   console.log(req.body);
-  req.flash('success', 'Feedback submitted, value: ' + req.body.res);
+  req.flash("success", "Feedback submitted, value: " + req.body.res);
   res.redirect(`/hub/class/id/${id}`);
 });
 

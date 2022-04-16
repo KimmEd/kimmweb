@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
   res.render("pages/hub", {
     layout: "layouts/hubLayout",
     data: {
-      elements: [],
+      elements: [{ type: 'js', path: 'js/sidebar.js' }],
       title: "Kimm Hub",
     },
     page: "main",
