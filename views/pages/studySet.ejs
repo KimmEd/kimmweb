@@ -1,0 +1,11 @@
+<div class="container card">
+    <h1><%= studyset.name %></h1>
+    <h2><%= studyset.description %></h2>
+    <% studyset.flashcards.forEach(flashcard => { %>
+        <p>Term: <%= flashcard.term %></p>
+        <p>Definition: <%= flashcard.definition %></p>
+        <p>Interchangeable: <%= flashcard.interchangeable %></p>
+        <hr>
+        <p>AuthorId: <%= flashcard.setAuthor %></p>
+    <% }) %> 
+</div>

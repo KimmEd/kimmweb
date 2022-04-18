@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -186,6 +187,7 @@ header div {
   margin: 0 auto;
   padding: 15px;
   box-shadow: 1px 1px 16px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
 }
 
 .form-group {
@@ -206,12 +208,13 @@ header div {
 }
 
 .alert .inner {
+  position: relative;
   display: block;
   padding: 6px;
-  margin: 6px;
   border-radius: 3px;
   border: 1px solid rgb(180, 180, 180);
   background-color: rgb(212, 212, 212);
+  margin-top: 1em;
 }
 
 .alert .close {

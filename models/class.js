@@ -1,4 +1,72 @@
 const mongoose = require("mongoose"),
+  studysetSchema = new mongoose.Schema({
+    name: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+      minlength: [
+        5,
+        "Study set name must be at least 5 characters long, got {VALUE}",
+      ],
+      maxlength: [
+        50,
+        "Study set name must be at most 50 characters long, got {VALUE}",
+      ],
+      alias: "studySetName",
+    },
+    description: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+      minlength: [
+        5,
+        "Study set description must be at least 5 characters long, got {VALUE}",
+      ],
+      maxlength: [
+        255,
+        "Study set description must be at most 255 characters long, got {VALUE}",
+      ],
+      alias: "studySetDescription",
+    },
+    flashcards: [
+      {
+        term: {
+          type: mongoose.SchemaTypes.String,
+          required: true,
+          minlength: [
+            5,
+            "Flashcard term must be at least 5 characters long, got {VALUE}",
+          ],
+          maxlength: [
+            255,
+            "Flashcard term must be at most 255 characters long, got {VALUE}",
+          ],
+        },
+        definition: {
+          type: mongoose.SchemaTypes.String,
+          required: true,
+          minlength: [
+            5,
+            "Flashcard definition must be at least 5 characters long, got {VALUE}",
+          ],
+          maxlength: [
+            510,
+            "Flashcard definition must be at most 510 characters long, got {VALUE}",
+          ],
+        },
+        interchangeable: {
+          type: mongoose.SchemaTypes.Boolean,
+          default: false,
+        },
+        image: {
+          type: mongoose.SchemaTypes.String,
+        },
+        setAuthor: {
+          type: mongoose.SchemaTypes.ObjectId,
+          required: true,
+          alias: "author",
+        },
+      },
+    ],
+  }),
   classSchema = new mongoose.Schema({
     className: {
       type: mongoose.SchemaTypes.String,
@@ -84,10 +152,11 @@ const mongoose = require("mongoose"),
       type: [mongoose.SchemaTypes.String],
       alias: "days",
     },
+    studysets: [studysetSchema],
   });
 
-  classSchema.virtual('classStudentsCount').get(function() {
-    return this.classStudents.length;
-  });
+classSchema.virtual("classStudentsCount").get(function () {
+  return this.classStudents.length;
+});
 
 module.exports = mongoose.model("Classes", classSchema);

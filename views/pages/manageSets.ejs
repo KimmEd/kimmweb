@@ -1,0 +1,65 @@
+<!-- Button to display creator of study sets of flashcards -->
+
+<section id="createFlashcards" style="display: none">
+    <div class="container">
+        <form action="/hub/class/id/<%- id %>/study-sets" method="post">
+            <h1>Create Study Set</h1>
+            <div class="form-group">
+                <label for="name">Study Set Name</label>
+                <input autocomplete="off" type="text" class="form-control" id="name" name="name" placeholder="Study Set Name">
+            </div>
+            <div class="form-group">
+                <label for="description">Study Set Description</label>
+                <input autocomplete="off" type="text" class="form-control" id="description" name="description" placeholder="Description">
+            </div>
+            <h3>Flashcards</h3>
+            <div id="flashcards">
+                <div class="flashcard-field card">
+                    <div class="flashcard-header">
+                      <span>1</span>
+                      <!-- Delete field -->
+                      <button type="button" onclick="close()" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </div>
+                    <input autocomplete="off" type="text" name="flashcard[0][term]" class="form-control flashcard-term" maxlength="255" minlength="5" placeholder="Term">
+                    <input autocomplete="off" type="text" name="flashcard[0][definition]" class="form-control flashcard-definition" maxlength="510" minlength="5" placeholder="Definition">
+                    <label for="flashcard[0][interchangeable]">Interchangeable</label>
+                    <input type="checkbox" value="interchangeable" name="flashcard[0][interchangeable]" class="form-control">
+                    <input type="hidden" name="flashcard[0][author]" value="<%- author %>" class="flashcard-author">
+                </div>
+            </div>
+            <div class="controls container">
+                <a href="#" id="add-flashcard" class="btn">Add flashcard</a>
+            </div>
+            <div class="container">
+
+              <button type="submit" class="btn btn-primary">Create Study Set</button>
+            </div>
+        </form>
+    </div>
+</section>
+<section id="study-sets">
+    <button
+      class="card light-theme"
+      style="text-align: center"
+      onclick="displaySection('createFlashcards')"
+    >
+      <h2>Create study set</h2>
+    </button>
+  <!-- Display study sets-->
+  <% if (!studysets) { %>
+  <div class="card">
+    <h2>No study sets found</h2>
+  </div>
+  <% } else { %> 
+    <% studysets.forEach((set) => { %>
+    <div class="card">
+      <h2><%= set.name %></h2>
+      <p><%= set.description %></p>
+      <a href="/hub/class/id/<%- id %>/study-sets/<%= set.id %>">
+        <button class="btn btn-primary">View study set (<%= set.flashcards.length %> flashcards)</button>
+      </a>
+    </div>
+    <% }); %> 
+  <% } %>
+</section>
