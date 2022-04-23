@@ -14,6 +14,7 @@ db.on("error", (error) => console.error(error));
 db.once("open", () => console.info("Connected to Mongoose"));
 
 // Security
+// Session lasts 14 days.
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

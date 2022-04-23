@@ -153,6 +153,15 @@ const mongoose = require("mongoose"),
       alias: "days",
     },
     studysets: [studysetSchema],
+    classLanguage: {
+      type: mongoose.SchemaTypes.String,
+      enum: {
+        values: ["en", "es"],
+        message: "Invalid language {{VALUE}}",
+      },
+      default: "en",
+      alias: "language",
+    },
   });
 
 classSchema.virtual("classStudentsCount").get(function () {

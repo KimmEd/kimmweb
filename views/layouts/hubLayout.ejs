@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/hub.css" type="text/css" />
     <script defer >
       function kEdSidebarOpen() {
+        document.getElementsByTagName('footer')[0].style.marginLeft = "25%";
         document.getElementById("main").style.marginLeft = "25%";
         document.getElementById("mySidebar").style.width = "25%";
         document.getElementById("mySidebar").style.display = "block";
@@ -13,6 +14,7 @@
       }
 
       function kEdSidebarClose() {
+        document.getElementsByTagName('footer')[0].style.marginLeft = "0%";
         document.getElementById("main").style.marginLeft = "0%";
         document.getElementById("mySidebar").style.display = "none";
         document.getElementById("openNav").style.display = "inline-block";
@@ -20,7 +22,6 @@
     </script> 
   </head>
   <body>
-    <%- include('../partials/navbar.ejs') %> 
     <%- include('../partials/messages.ejs') %>
     <%- include('../partials/sidebar.ejs') %>
 		
