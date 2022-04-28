@@ -10,7 +10,9 @@ const {
 } = require("../middleware/checkAuth");
 
 router.get("/", (req, res) => {
-  res.render("pages/main/index");
+  res.render("pages/main/index", {
+    logged: req.isAuthenticated(),
+  });
 });
 
 router.get('/about', (req, res) => {
@@ -20,6 +22,26 @@ router.get('/about', (req, res) => {
 router.get("/login", checkNotAuthenticated, (req, res) => {
   res.render("pages/authentication/login");
 });
+
+router.route('/contact').get((req, res) => {
+  res.render('pages/main/contact');
+}).post((req, res) => {
+  const { name, email, message } = req.body;
+  const errors = [];
+  if (!name || !email || !message) {
+    errors.push({ msg: 'Please enter all fields' });
+  }
+  if (errors.length > 0) {
+    req.flash('error', errors);
+    res.render('pages/main/contact');
+  } else {
+    console.log(`${name} ${email} ${message}`);
+    req.flash('success', 'Message sent');
+    res.redirect('/');
+  }
+});
+
+
 
 router.post(
   "/login",
