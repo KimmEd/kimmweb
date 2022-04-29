@@ -2,8 +2,9 @@ const express = require("express"),
   router = express.Router(),
   bcrypt = require("bcrypt"),
   User = require("../models/user"),
-  passport = require("passport");
-
+  passport = require("passport"), 
+  sendMailMethod = require("../src/sendMail");
+  
 const {
   checkNotAuthenticated,
   checkAuthenticated,
@@ -25,13 +26,19 @@ router.get("/login", checkNotAuthenticated, (req, res) => {
 
 router.route('/contact').get((req, res) => {
   res.render('pages/main/contact');
-}).post((req, res) => {
+}).post(async (req, res) => {
   const { name, email, message } = req.body;
   const errors = [];
   if (!name || !email || !message) {
     errors.push({ msg: 'Please enter all fields' });
   }
-  if (errors.length > 0) {
+  const result = await sendMailMethod({
+    from: email,
+    to: "tatanlorca13@gmail.com",
+    subject: "Contact Form",
+    text: `Message's author: ${name}.\n\n${message}`,
+  });
+  if (!result) {
     req.flash('error', errors);
     res.render('pages/main/contact');
   } else {
