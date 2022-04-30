@@ -421,7 +421,7 @@ section {
   font-style:italic;
   color: #555555;
   padding:1.2em 30px 1.2em 75px;
-  border-left:8px solid #78C0A8 ;
+  border-left:8px solid #57CC98 ;
   line-height:1.6;
   position: relative;
   background:#EDEDED;
@@ -430,7 +430,7 @@ section {
 .blockquote::before{
   font-family:Arial;
   content: "\201C";
-  color:#78C0A8;
+  color:#57CC98;
   font-size:4em;
   position: absolute;
   left: 10px;

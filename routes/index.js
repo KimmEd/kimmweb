@@ -3,7 +3,7 @@ const express = require("express"),
   bcrypt = require("bcrypt"),
   User = require("../models/user"),
   passport = require("passport"), 
-  sendMailMethod = require("../src/sendMail");
+  sendMailMethod = require("../middleware/sendMail");
   
 const {
   checkNotAuthenticated,
