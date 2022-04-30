@@ -25,13 +25,13 @@ getStudyset().then((studySet) => {
       KIMM_SWATCH[Math.floor(Math.random() * KIMM_SWATCH.length)];
     const cardArea = document.getElementById("card-area");
     cardArea.style.backgroundColor = firstColor;
-    cardArea.innerHTML = `<div class="card">${qBank[currentQuestion].question}</div>`;
+    cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].question}</div>`;
     cardArea.addEventListener("click", () => {
       if (showingCard) {
-        cardArea.innerHTML = `<div class="card">${qBank[currentQuestion].answer}</div>`;
+        cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].answer}</div>`;
         showingCard = false;
       } else {
-        cardArea.innerHTML = `<div class="card">${qBank[currentQuestion].question}</div>`;
+        cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].question}</div>`;
         cardArea.style.backgroundColor = firstColor;
         showingCard = true;
       }
@@ -44,7 +44,7 @@ getStudyset().then((studySet) => {
       if (currentQuestion >= qBank.length) {
         displayFinalMessage();
       }
-      cardArea.innerHTML = `<div class="card">${qBank[currentQuestion].question}</div>`;
+      cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].question}</div>`;
       cardArea.style.backgroundColor = firstColor;
       showingCard = true;
     });

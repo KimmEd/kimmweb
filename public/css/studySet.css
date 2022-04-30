@@ -13,24 +13,27 @@
 #card-area {
   width: 70%;
   height: 500px;
-  margin: auto;
-  margin-top: 80px;
+  margin: 0 auto;
   border: 3px solid #abb7b7;
   border-radius: 5px;
-  position: relative;
-  overflow: hidden;
-}
-.card {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  text-align: center;
-  line-height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 2rem;
   cursor: pointer;
   word-wrap: normal;
   text-overflow: clip;
 }
+/* .card-text {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  text-align: center;
+} */
 #next-button {
   width: 80px;
   text-align: center;
