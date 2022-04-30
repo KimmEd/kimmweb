@@ -182,7 +182,7 @@ router
       }
       if (!classObj.studysets) {
         studySets = false;
-        return
+        return;
       }
       studySets = classObj.studysets;
       res.render("pages/manageSets", {
@@ -200,13 +200,13 @@ router
         id: req.params.id,
         author: req.user.id,
       });
-    })
+    });
   })
   .post((req, res) => {
     const { id } = req.params;
     const { name, description, flashcard: flashcards } = req.body;
     console.log({ ...req.body });
-    
+
     // #region Validation
 
     if (!(name && description && flashcards)) {
@@ -226,7 +226,7 @@ router
     });
 
     // #endregion
-    
+
     const Class = require("../models/class");
     Class.findById(id).exec((err, classObj) => {
       if (err || !classObj) {
@@ -253,43 +253,21 @@ router
     });
   });
 
-router.route('/id/:id/study-sets/:studySetId')
-  .get((req, res) => {
-    // const { id, studySetId } = req.params;
-    // const Class = require("../models/class");
-    // Class.findById(id).exec((err, classObj) => {
-    //   if (err || !classObj) {
-    //     req.flash("error", "Class not found");
-    //     return res.redirect("/hub");
-    //   }
-    //   if (!classObj.studysets) {
-    //     req.flash("error", "No study sets found");
-    //     return res.redirect(`/hub/class/id/${id}/study-sets`);
-    //   }
-    //   const [currentSS] = classObj.studysets.filter(set => set.id === studySetId)
-
-    //   // if no study set found
-    //   if (!currentSS) {
-    //     req.flash("error", "Study set not found");
-    //     return res.redirect(`/hub/class/id/${id}/study-sets`);
-    //   }
-      res.render("pages/studySet", {
-        layout: "layouts/hubLayout",
-        data: {
-          elements: [
-            { type: "css", path: "/css/studySet.css" },
-            { type: "js", path: "/js/studyset.js" },
-          ],
-          title: "Study Set - Kimm",
-        },
-        // studyset: currentSS,
-        page: "studySet",
-        // id
-      });
-    // })
-  })
-  // Submit study set scores
-  // .post((req, res) => {})
+router.route("/id/:id/study-sets/:studySetId").get((req, res) => {
+  res.render("pages/studySet", {
+    layout: "layouts/hubLayout",
+    data: {
+      elements: [
+        { type: "css", path: "/css/studySet.css" },
+        { type: "js", path: "/js/studyset.js" },
+      ],
+      title: "Study Set - Kimm",
+    },
+    page: "studySet",
+  });
+});
+// Submit study set scores
+// .post((req, res) => {})
 
 // TODO: Add a route to leave class
 module.exports = router;
