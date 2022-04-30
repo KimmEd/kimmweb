@@ -47,6 +47,33 @@ router.get("/classes", (req, res) => {
   );
 });
 
+router.get("/todo", (req, res) => {
+  res.render("pages/hub/todoList", {
+    layout: "layouts/hubLayout",
+    data: {
+      elements: [
+        { type: "css", path: "/css/todoList.css" },
+        { type: "js", path: "/js/todoList.js" },
+      ],
+      title: "Kimm - Todo List",
+    },
+  });
+});
+
+router.get('/calendar', (req, res) => {
+  res.render('pages/hub/calendar', {
+    layout: 'layouts/hubLayout',
+    data: {
+      elements: [
+        { type: 'css', path: '/css/calendar.css' },
+        { type: 'js', path: '/js/calendar.js' },
+      ],
+      title: 'Kimm - Calendar',
+    },
+    default: false,
+  });
+})
+
 router.use("/class", require("./class"));
 
 module.exports = router;
