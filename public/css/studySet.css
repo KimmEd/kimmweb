@@ -1,60 +1,18 @@
-.flashcard {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px #000000;
-  overflow: hidden;
-}
-
-.input-group {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.card {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px #000000;
-  overflow: hidden;
-}
-
-html,
-body {
+.studyset {
   margin: 0;
   padding: 0;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
-@font-face {
-  font-family: Montserrat;
-  src: url("Montserrat-Medium.ttf");
-}
-#activityTitle {
+#activity-title {
   text-align: center;
-  font-size: 38px;
-  font-family: Montserrat, Arial;
-  margin-top: 50px;
+  font-size: 1.4rem;
+  margin-top: 2rem;
 }
-#cardArea {
-  width: 300px;
-  height: 200px;
+#card-area {
+  width: 70%;
+  height: 500px;
   margin: auto;
   margin-top: 80px;
   border: 3px solid #abb7b7;
@@ -63,17 +21,17 @@ body {
   overflow: hidden;
 }
 .card {
-  width: 300px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   position: absolute;
   text-align: center;
-  line-height: 200px;
-  font-size: 45px;
-  color: #efefef;
-  font-family: Montserrat, Arial;
+  line-height: 3rem;
+  font-size: 2rem;
   cursor: pointer;
+  word-wrap: normal;
+  text-overflow: clip;
 }
-#nextButton {
+#next-button {
   width: 80px;
   text-align: center;
   font-size: 20px;
@@ -85,14 +43,12 @@ body {
   background-color: #019875;
   border: 2px solid #1e824c;
   border-radius: 5px;
-  font-family: Montserrat, Arial;
 }
-#nextButton:hover {
+#next-button:hover {
   opacity: 0.6;
 }
-#finalMessage {
+#final-message {
   text-align: center;
   font-size: 30px;
   margin-top: 30px;
-  font-family: Montserrat, Arial;
 }

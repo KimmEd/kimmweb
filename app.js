@@ -38,7 +38,8 @@ const upload = multer(),
   initializePassport = require("./middleware/passport-config"),
   indexRouter = require("./routes/index"),
   hubRouter = require("./routes/hub"),
-  User = require("./models/user");
+  User = require("./models/user"),
+  apiRouter = require("./routes/api");
 
 initializePassport(passport, (email) =>
   User.findOne({ email: email }).then((user) => {
@@ -67,6 +68,7 @@ app.use(function (req, res, next) {
 
 app.use("/", indexRouter);
 app.use("/hub", hubRouter);
+app.use("/api", apiRouter);
 
 app.all("*", (req, res) => {
   res.status(404).send("404 Not Found");

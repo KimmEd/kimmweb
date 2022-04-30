@@ -11,7 +11,9 @@
           to learn. <br />
           And we are here to help you find it.
         </p>
-        <a href="/login" class="main_btn"> Get Started </a>
+        <% if (!logged) { %>
+          <a href="/login" class="main_btn"> Get Started </a>
+        <% } %>
       </div>
       <div class="col-lg-6 col-md-6 header-left">
         <div class="">
