@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 const classCardsLikeSchema = new mongoose.Schema({
   cardId: {
     type: mongoose.SchemaTypes.ObjectId,
@@ -80,5 +79,4 @@ const classCardsSchema = new mongoose.Schema({
 classCardsSchema.statics.findByClassId = function (classId) {
   return this.find({ classId: classId });
 };
-
-module.exports = mongoose.model("Class Cards", classCardsSchema);
+export default mongoose.model("Class Cards", classCardsSchema);

@@ -28,7 +28,7 @@
   <div style="align-items: right; padding: 10px; display: flex">
     <div class="container">
       <% if (login) { %>
-      <form action="/logout?_method=DELETE" method="post">
+      <form action="/login?_method=DELETE" method="post">
         <button type="submit" rel="nofollow">Logout</button>
       </form>
       <% } else { %>

@@ -4,20 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kimm Boilerplate</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet"> 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <% if (data) { %> <% data.elements.forEach(e => { %> <% if (e.type == 'css')
-    { %>
-    <link href="<%= e.path %>" rel="stylesheet" type="text/css" />
-    <% } else if (e.type == 'js') { %>
-    <script defer src="<%= e.path %>"></script>
-    <% } %> <% }) %> <% } %>
-  </head>
+    <title>Kimm - 404</title>
+    <link rel="stylesheet" href="/css/404.css">
+    <script src="/js/404.js" defer></script>
   <body>
-    <%- include('../partials/messages.ejs') %>
-    <div class="container"><%- body %></div>
+    <%- body %>
   </body>
 </html>

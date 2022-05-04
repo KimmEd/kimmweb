@@ -1,5 +1,5 @@
-const mongoose = require("mongoose"),
-  studysetSchema = new mongoose.Schema({
+import mongoose from "mongoose";
+const  studysetSchema = new mongoose.Schema({
     name: {
       type: mongoose.SchemaTypes.String,
       required: true,
@@ -168,4 +168,4 @@ classSchema.virtual("classStudentsCount").get(function () {
   return this.classStudents.length;
 });
 
-module.exports = mongoose.model("Classes", classSchema);
+export default mongoose.model("Classes", classSchema);

@@ -1,9 +1,11 @@
 "use strict";
+import dotenv from "dotenv";
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
+  dotenv.config();
 }
-const nodemailer = require("nodemailer");
-const ejs = require("ejs");
+
+import nodemailer from "nodemailer";
+import ejs from "ejs";
 /**
  * sendEmail
  * @param {Object} mailObj - Email information
@@ -43,7 +45,7 @@ const sendEmail = async (mailObj) => {
             text: text,
             html: data,
           };
-          transporter.sendMail( mainOptions , (err, info) => {
+          transporter.sendMail(mainOptions, (err, info) => {
             if (err)
               throw new Error(
                 `Something went wrong in the sendmail method. Error: ${err.message}`
@@ -64,4 +66,4 @@ const sendEmail = async (mailObj) => {
   }
 };
 
-module.exports = sendEmail;
+export default sendEmail;

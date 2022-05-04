@@ -1,12 +1,26 @@
+import dotenv from "dotenv";
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
+  dotenv.config();
 }
-const express = require("express"),
-  app = express(),
-  mongoose = require("mongoose"),
-  session = require("express-session"),
-  MongoStore = require("connect-mongo"),
-  helmet = require("helmet");
+
+import express from "express";
+import mongoose from "mongoose";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import helmet from "helmet";
+import expressEjsLayouts from "express-ejs-layouts";
+import path from "path";
+import bodyParser from "body-parser";
+import flash from "express-flash";
+import passport from "passport";
+import methodOverride from "method-override";
+import multer from "multer";
+const app = express();
+
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+const __filename = fileURLToPath(import.meta.url),
+  __dirname = dirname(__filename);
 
 mongoose.connect(process.env.DATABASE_URI, { useNewUrlParser: true });
 const db = mongoose.connection;
@@ -26,20 +40,12 @@ app.use(
 app.use(helmet({ contentSecurityPolicy: false }));
 app.disable("x-powered-by");
 
-const expressLayouts = require("express-ejs-layouts"),
-  path = require("path"),
-  bodyParser = require("body-parser"),
-  multer = require("multer"),
-  passport = require("passport"),
-  flash = require("express-flash"),
-  methodOverride = require("method-override");
-
-const upload = multer(),
-  initializePassport = require("./middleware/passport-config"),
-  indexRouter = require("./routes/index"),
-  hubRouter = require("./routes/hub"),
-  User = require("./models/user"),
-  apiRouter = require("./routes/api");
+const upload = multer();
+import initializePassport from "./middleware/passport-config.js";
+import indexRouter from "./routes/indexRouter.js";
+import hubRouter from "./routes/hubRouter.js";
+import apiRouter from "./routes/apiRouter.js";
+import User from "./models/userModel.js";
 
 initializePassport(passport, (email) =>
   User.findOne({ email: email }).then((user) => {
@@ -51,7 +57,7 @@ initializePassport(passport, (email) =>
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.set("layout", "layouts/layout");
-app.use(expressLayouts);
+app.use(expressEjsLayouts);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(upload.array());
@@ -71,7 +77,7 @@ app.use("/hub", hubRouter);
 app.use("/api", apiRouter);
 
 app.all("*", (req, res) => {
-  res.status(404).send("404 Not Found");
+  res.status(404).render("pages/404", {layout: "layouts/basicLayout"});
 });
 
 app.listen(process.env.PORT || 3000);
