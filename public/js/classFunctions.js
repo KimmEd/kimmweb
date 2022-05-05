@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 function displaySection(str) {
-  let sections = ["createPost", "posts", "members", "settings", "resources"];
+  let sections = ['createPost', 'posts', 'members', 'settings', 'resources'];
   let buttons = [
-    "postsButton",
-    "membersButton",
-    "settingsButton",
-    "resourcesButton",
+    'postsButton',
+    'membersButton',
+    'settingsButton',
+    'resourcesButton',
   ];
   sections.splice(sections.indexOf(str), 1);
-  buttons.splice(buttons.indexOf(str + "Button"), 1);
+  buttons.splice(buttons.indexOf(str + 'Button'), 1);
   let sectionElements = [];
   sections.forEach(section => {
     sectionElements.push(document.getElementById(section));
@@ -30,13 +30,13 @@ function displaySection(str) {
 
 function inactive(arr) {
   for (let i = 0; i < arr.length; i++) {
-    document.getElementById(arr[i]).classList.remove("active");
+    document.getElementById(arr[i]).classList.remove('active');
   }
 }
 
 function active(arr) {
   for (let i = 0; i < arr.length; i++) {
-    document.getElementById(arr[i]).classList.add("active");
+    document.getElementById(arr[i]).classList.add('active');
   }
 }
 

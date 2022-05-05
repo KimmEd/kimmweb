@@ -1,6 +1,6 @@
 function drawVisor() {
-  const canvas = document.getElementById("visor");
-  const ctx = canvas.getContext("2d");
+  const canvas = document.getElementById('visor');
+  const ctx = canvas.getContext('2d');
 
   ctx.beginPath();
   ctx.moveTo(5, 45);
@@ -14,14 +14,14 @@ function drawVisor() {
   ctx.bezierCurveTo(15, 10, 5, 10, 5, 20);
   ctx.lineTo(5, 45);
 
-  ctx.fillStyle = "#2f3640";
-  ctx.strokeStyle = "#f5f6fa";
+  ctx.fillStyle = '#2f3640';
+  ctx.strokeStyle = '#f5f6fa';
   ctx.fill();
   ctx.stroke();
 }
 
-const cordCanvas = document.getElementById("cord");
-const ctx = cordCanvas.getContext("2d");
+const cordCanvas = document.getElementById('cord');
+const ctx = cordCanvas.getContext('2d');
 
 let y1 = 160;
 let y2 = 100;
@@ -39,7 +39,7 @@ function animate() {
   ctx.moveTo(130, 170);
   ctx.bezierCurveTo(250, y1, 345, y2, 400, y3);
 
-  ctx.strokeStyle = "white";
+  ctx.strokeStyle = 'white';
   ctx.lineWidth = 8;
   ctx.stroke();
 

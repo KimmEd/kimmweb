@@ -1,22 +1,22 @@
-import express from "express";
+import express from 'express';
 
 const router = express.Router();
 
-import Classrooms from "../models/classModel.js";
-import User from "../models/userModel.js";
-import ClassCards from "../models/classCardsModel.js";
+import Classrooms from '../models/classModel.js';
+import User from '../models/userModel.js';
+import ClassCards from '../models/classCardsModel.js';
 
 export const getStudyset = (req, res) => {
   const { id, studySetId } = req.query;
   Classrooms.findById(id).exec((err, classObj) => {
     if (err || !classObj) {
       return res.status(404).json({
-        message: "Class not found",
+        message: 'Class not found',
       });
     } else {
       if (!classObj.studysets) {
         return res.status(404).json({
-          message: "No study sets found",
+          message: 'No study sets found',
         });
       } else {
         const studySet = classObj.studysets.filter(
@@ -31,38 +31,38 @@ export const getStudyset = (req, res) => {
 };
 
 export const getHub = (req, res) => {
-  res.render("pages/hub", {
-    layout: "layouts/hubLayout",
+  res.render('pages/hub', {
+    layout: 'layouts/hubLayout',
     data: {
       elements: [],
-      title: "Kimm Hub",
+      title: 'Kimm Hub',
     },
-    page: "main",
+    page: 'main',
   });
 };
 
 export const getToDo = (req, res) => {
-  res.render("pages/hub/todoList", {
-    layout: "layouts/hubLayout",
+  res.render('pages/hub/todoList', {
+    layout: 'layouts/hubLayout',
     data: {
       elements: [
-        { type: "css", path: "/css/todoList.css" },
-        { type: "js", path: "/js/todoList.js" },
+        { type: 'css', path: '/css/todoList.css' },
+        { type: 'js', path: '/js/todoList.js' },
       ],
-      title: "Kimm - Todo List",
+      title: 'Kimm - Todo List',
     },
   });
 };
 
 export const getCalendar = (req, res) => {
-  res.render("pages/hub/calendar", {
-    layout: "layouts/hubLayout",
+  res.render('pages/hub/calendar', {
+    layout: 'layouts/hubLayout',
     data: {
       elements: [
-        { type: "css", path: "/css/calendar.css" },
-        { type: "js", path: "/js/calendar.js" },
+        { type: 'css', path: '/css/calendar.css' },
+        { type: 'js', path: '/js/calendar.js' },
       ],
-      title: "Kimm - Calendar",
+      title: 'Kimm - Calendar',
     },
     default: false,
   });
@@ -75,7 +75,7 @@ export const getClasses = (req, res) => {
     },
     async (err, classes) => {
       if (err) {
-        req.flash("error", "Error loading classes");
+        req.flash('error', 'Error loading classes');
         return;
       }
       const trueClass = await Promise.all(
@@ -86,11 +86,11 @@ export const getClasses = (req, res) => {
           };
         })
       );
-      res.render("pages/classMenu", {
-        layout: "layouts/hubLayout",
+      res.render('pages/classMenu', {
+        layout: 'layouts/hubLayout',
         data: {
-          elements: [{ type: "css", path: "/css/classMenu.css" }],
-          title: "Kimm - Classes",
+          elements: [{ type: 'css', path: '/css/classMenu.css' }],
+          title: 'Kimm - Classes',
         },
         classes: trueClass,
       });
@@ -99,21 +99,21 @@ export const getClasses = (req, res) => {
 };
 
 export const getAddClass = (req, res) => {
-  res.render("pages/addClass", {
-    layout: "layouts/hubLayout",
+  res.render('pages/addClass', {
+    layout: 'layouts/hubLayout',
     data: {
       elements: [],
-      title: "Add a Class - Kimm",
+      title: 'Add a Class - Kimm',
     },
-    page: "addClass",
+    page: 'addClass',
   });
 };
 
 export const postAddClass = async (req, res) => {
   const { name, description, image, students } = req.body;
   if (!(name && description && image && students))
-    return res.redirect("/hub/add");
-  let studentsArray = students.toLowerCase().split(" "),
+    return res.redirect('/hub/add');
+  let studentsArray = students.toLowerCase().split(' '),
     studentsIds = [],
     notFound = [];
   for (let i = 0; i < studentsArray.length; i++) {
@@ -132,13 +132,13 @@ export const postAddClass = async (req, res) => {
     });
     await classObj.save();
     req.flash(
-      "success",
-      `The following emails were not found: ${notFound.join(" ")}`
+      'success',
+      `The following emails were not found: ${notFound.join(' ')}`
     );
-    res.redirect("/hub");
+    res.redirect('/hub');
   } catch (err) {
-    req.flash("error", "Error adding class");
-    res.redirect("/hub/add");
+    req.flash('error', 'Error adding class');
+    res.redirect('/hub/add');
   }
 };
 
@@ -146,26 +146,26 @@ export const getClassId = (req, res) => {
   const { id } = req.params;
   Classrooms.findById(id).exec((err, classObj) => {
     if (err || !classObj) {
-      req.flash("error", "Class not found");
-      return res.redirect("/hub");
+      req.flash('error', 'Class not found');
+      return res.redirect('/hub');
     }
     ClassCards.findByClassId(id).exec((err, cards) => {
       if (err) {
-        req.flash("success", "No post found");
+        req.flash('success', 'No post found');
         return;
       }
 
-      res.render("pages/class", {
-        layout: "layouts/hubLayout",
+      res.render('pages/class', {
+        layout: 'layouts/hubLayout',
         data: {
           elements: [
-            { type: "css", path: "/css/class.css" },
-            { type: "js", path: "/js/classFunctions.js" },
-            { type: "js", path: "/js/display.js" },
+            { type: 'css', path: '/css/class.css' },
+            { type: 'js', path: '/js/classFunctions.js' },
+            { type: 'js', path: '/js/display.js' },
           ],
           title: `${classObj.name} - Kimm`,
         },
-        page: "class",
+        page: 'class',
         classroom: classObj,
         cards,
         id: req.params.id,
@@ -182,25 +182,25 @@ export const deleteClass = async (req, res) => {
     if (classObj.classTeacher.toString() === req.user.id) {
       await Classrooms.findByIdAndDelete(id);
       // Flash success message
-      req.flash("success", "Class deleted");
-      res.redirect("/hub");
+      req.flash('success', 'Class deleted');
+      res.redirect('/hub');
     } else {
-      res.redirect("/hub");
+      res.redirect('/hub');
     }
   } catch (err) {
-    req.flash("success", err.message);
-    res.redirect("/hub");
+    req.flash('success', err.message);
+    res.redirect('/hub');
   }
 };
 
 export const getPost = (req, res) => {
-  res.render("pages/classPost", {
-    layout: "layouts/hubLayout",
+  res.render('pages/classPost', {
+    layout: 'layouts/hubLayout',
     data: {
       elements: [],
-      title: "Class Post - Kimm",
+      title: 'Class Post - Kimm',
     },
-    page: "classPost",
+    page: 'classPost',
     id: req.params.id,
   });
 };
@@ -213,7 +213,7 @@ export const createPost = (req, res) => {
   else {
     const newCard = new ClassCards({
       classId: id,
-      cardType: "post",
+      cardType: 'post',
       content: {
         title,
         description,
@@ -225,7 +225,7 @@ export const createPost = (req, res) => {
 
     newCard.save((err) => {
       if (err) {
-        req.flash("error", "Error adding post");
+        req.flash('error', 'Error adding post');
         return res.redirect(`/hub/class/id/${id}`);
       } else {
         res.redirect(`/hub/class/id/${id}`);
@@ -238,7 +238,7 @@ export const createPost = (req, res) => {
 export const postFeedback = (req, res) => {
   const { id } = req.params;
   console.log(req.body);
-  req.flash("success", "Feedback submitted, value: " + req.body.res);
+  req.flash('success', 'Feedback submitted, value: ' + req.body.res);
   res.redirect(`/hub/class/id/${id}`);
 };
 
@@ -247,26 +247,26 @@ export const getStudysetByClass = (req, res) => {
   let studySets = [];
   Classrooms.findById(id).exec((err, classObj) => {
     if (err || !classObj) {
-      req.flash("error", "Class not found");
-      return res.redirect("/hub");
+      req.flash('error', 'Class not found');
+      return res.redirect('/hub');
     }
     if (!classObj.studysets) {
       studySets = false;
       return;
     }
     studySets = classObj.studysets;
-    res.render("pages/manageSets", {
-      layout: "layouts/hubLayout",
+    res.render('pages/manageSets', {
+      layout: 'layouts/hubLayout',
       data: {
         elements: [
-          { type: "css", path: "/css/studySet.css" },
-          { type: "js", path: "/js/flashcards.js" },
-          { type: "js", path: "/js/display.js" },
+          { type: 'css', path: '/css/studySet.css' },
+          { type: 'js', path: '/js/flashcards.js' },
+          { type: 'js', path: '/js/display.js' },
         ],
-        title: "Study Set - Kimm",
+        title: 'Study Set - Kimm',
       },
       studysets: studySets,
-      page: "studySet",
+      page: 'studySet',
       id: req.params.id,
       author: req.user.id,
     });
@@ -280,13 +280,13 @@ export const postStudysetByClass = (req, res) => {
   // #region Validation
 
   if (!(name && description && flashcards)) {
-    req.flash("error", "Please fill in all fields");
+    req.flash('error', 'Please fill in all fields');
     return res.redirect(`/hub/class/id/${id}/study-sets`);
   }
 
   flashcards.forEach((flashcard) => {
     if (!flashcard.term || !flashcard.definition || !flashcard.author) {
-      req.flash("error", "Please fill in all the flashcard fields");
+      req.flash('error', 'Please fill in all the flashcard fields');
       return res.redirect(`/hub/class/id/${id}/study-sets`);
     }
 
@@ -299,8 +299,8 @@ export const postStudysetByClass = (req, res) => {
 
   Classrooms.findById(id).exec((err, classObj) => {
     if (err || !classObj) {
-      req.flash("error", "Class not found");
-      return res.redirect("/hub");
+      req.flash('error', 'Class not found');
+      return res.redirect('/hub');
     }
     if (!classObj.studysets) {
       classObj.studysets = [];
@@ -312,10 +312,10 @@ export const postStudysetByClass = (req, res) => {
     });
     classObj.save((err) => {
       if (err) {
-        req.flash("error", "Error adding study set");
+        req.flash('error', 'Error adding study set');
         return res.redirect(`/hub/class/id/${id}/study-sets`);
       } else {
-        req.flash("success", "Study set added");
+        req.flash('success', 'Study set added');
         return res.redirect(`/hub/class/id/${id}/study-sets`);
       }
     });
@@ -323,16 +323,16 @@ export const postStudysetByClass = (req, res) => {
 };
 
 export const displayStudyset = (req, res) => {
-  res.render("pages/studySet", {
-    layout: "layouts/hubLayout",
+  res.render('pages/studySet', {
+    layout: 'layouts/hubLayout',
     data: {
       elements: [
-        { type: "css", path: "/css/studySet.css" },
-        { type: "js", path: "/js/studyset.js" },
+        { type: 'css', path: '/css/studySet.css' },
+        { type: 'js', path: '/js/studyset.js' },
       ],
-      title: "Study Set - Kimm",
+      title: 'Study Set - Kimm',
     },
-    page: "studySet",
+    page: 'studySet',
   });
 };
 export default router;

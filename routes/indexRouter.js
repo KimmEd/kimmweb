@@ -1,8 +1,8 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
   checkAuthenticated,
   checkNotAuthenticated,
-} from "../middleware/checkAuth.js";
+} from '../middleware/checkAuth.js';
 
 const router = Router();
 
@@ -16,21 +16,21 @@ import {
   getRegister,
   postRegister,
   deleteLogin,
-} from "../controllers/index.js";
+} from '../controllers/index.js';
 
-router.get("/", getHome);
+router.get('/', getHome);
 
-router.get("/about", getAbout);
+router.get('/about', getAbout);
 
 router
-  .route("/login")
+  .route('/login')
   .get(checkNotAuthenticated, getLogin)
   .post(checkNotAuthenticated, postLogin);
 
-router.route("/contact").get(getContact).post(postContact);
+router.route('/contact').get(getContact).post(postContact);
 
 router
-  .route("/register")
+  .route('/register')
   .get(checkNotAuthenticated, getRegister)
   .post(checkNotAuthenticated, postRegister)
   .delete(checkAuthenticated, deleteLogin);

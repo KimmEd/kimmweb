@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const [id, _, studySetId] = window.location.pathname.split("/").slice(-3);
+const [id, _, studySetId] = window.location.pathname.split('/').slice(-3);
 
 let qBank = [],
   showingCard = true,
@@ -21,16 +21,16 @@ getStudyset().then((studySet) => {
 
   function beginActivity() {
     // Set up the layout
-    document.getElementById("activity-title").innerHTML = name;
-    document.getElementById("studyset-description").innerHTML = description;
+    document.getElementById('activity-title').innerHTML = name;
+    document.getElementById('studyset-description').innerHTML = description;
 
     // Set up rotating color.
     let [colorTerm, colorDefinition] = colorSelector();
 
-    const cardArea = document.getElementById("card-area");
+    const cardArea = document.getElementById('card-area');
     cardArea.style.backgroundColor = colorTerm;
     cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].question}</div>`;
-    cardArea.addEventListener("click", () => {
+    cardArea.addEventListener('click', () => {
       if (!playingSet) return;
       if (showingCard) {
         cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].definition}</div>`;
@@ -43,9 +43,9 @@ getStudyset().then((studySet) => {
       }
     });
 
-    let nextButton = document.createElement("button");
-    nextButton.innerText = "Next";
-    nextButton.addEventListener("click", () => {
+    let nextButton = document.createElement('button');
+    nextButton.innerText = 'Next';
+    nextButton.addEventListener('click', () => {
       currentQuestion++;
       if (currentQuestion >= qBank.length) {
         playingSet = false;
@@ -57,18 +57,18 @@ getStudyset().then((studySet) => {
         showingCard = true;
       }
     });
-    document.getElementById("button-area").appendChild(nextButton);
+    document.getElementById('button-area').appendChild(nextButton);
 
     function displayFinalMessage() {
-      let buttonArea = document.getElementById("button-area");
+      let buttonArea = document.getElementById('button-area');
       while (buttonArea.hasChildNodes()) {
         buttonArea.removeChild(buttonArea.lastChild);
       }
-      document.getElementById("card-area").innerHTML = "";
-      let finalMessage = document.createElement("div");
-      finalMessage.id = "final-message";
-      finalMessage.innerHTML = "You have completed the study set!";
-      document.getElementById("card-area").appendChild(finalMessage);
+      document.getElementById('card-area').innerHTML = '';
+      let finalMessage = document.createElement('div');
+      finalMessage.id = 'final-message';
+      finalMessage.innerHTML = 'You have completed the study set!';
+      document.getElementById('card-area').appendChild(finalMessage);
     }
 
     // cardArea.append('<div id="card1" class="card">' + qBank[currentQuestion].question + '</div>')
@@ -95,7 +95,7 @@ function shuffleArray(arr) {
 }
 
 function colorSelector() {
-  const KIMM_SWATCH = ["#39A2A5", "#57CC98", "#80EA98"];
+  const KIMM_SWATCH = ['#39A2A5', '#57CC98', '#80EA98'];
   let colorTerm = KIMM_SWATCH[Math.floor(Math.random() * KIMM_SWATCH.length)],
     colorDefinition =
       KIMM_SWATCH[Math.floor(Math.random() * KIMM_SWATCH.length)];

@@ -6,10 +6,10 @@ class Todo_Class {
   }
 
   add() {
-    const todoInput = document.querySelector("#todo-input");
+    const todoInput = document.querySelector('#todo-input');
     const todoValue = todoInput.value;
-    if (todoValue == "") {
-      alert("Please enter a value");
+    if (todoValue == '') {
+      alert('Please enter a value');
       return;
     } else {
       const todoObject = {
@@ -19,7 +19,7 @@ class Todo_Class {
       };
       todoObjectList.unshift(todoObject);
       this.display();
-      todoInput.value = "";
+      todoInput.value = '';
     }
   }
   toggleDone(e) {
@@ -36,31 +36,31 @@ class Todo_Class {
     this.display();
   }
   display() {
-    this.ulElement.innerHTML = "";
+    this.ulElement.innerHTML = '';
     todoObjectList.forEach((item) => {
-      const liElement = document.createElement("li");
-      const delBtn = document.createElement("i");
+      const liElement = document.createElement('li');
+      const delBtn = document.createElement('i');
 
       liElement.innerText = item.value;
-      liElement.setAttribute("data-id", item.id);
+      liElement.setAttribute('data-id', item.id);
 
-      delBtn.setAttribute("data-id", item.id);
-      delBtn.classList.add("far", "fa-trash-alt");
+      delBtn.setAttribute('data-id', item.id);
+      delBtn.classList.add('far', 'fa-trash-alt');
 
       liElement.appendChild(delBtn);
 
-      delBtn.addEventListener("click", (e) => {
-        const deleteId = e.target.getAttribute("data-id");
+      delBtn.addEventListener('click', (e) => {
+        const deleteId = e.target.getAttribute('data-id');
         myTodoList.deleteElement(deleteId);
       });
 
-      liElement.addEventListener("click", (e) => {
-        const selectedId = e.target.getAttribute("data-id");
+      liElement.addEventListener('click', (e) => {
+        const selectedId = e.target.getAttribute('data-id');
         myTodoList.toggleDone(selectedId);
       });
 
       if (item.done) {
-        liElement.classList.add("checked");
+        liElement.classList.add('checked');
       }
 
       this.ulElement.appendChild(liElement);
@@ -69,10 +69,10 @@ class Todo_Class {
 }
 
 // Main
-const listSection = document.querySelector("#todo-ul");
+const listSection = document.querySelector('#todo-ul');
 
 let myTodoList = new Todo_Class(listSection);
 
-document.querySelector(".add-btn").addEventListener("click", () => {
+document.querySelector('.add-btn').addEventListener('click', () => {
   myTodoList.add();
 });

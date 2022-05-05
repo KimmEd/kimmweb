@@ -1,11 +1,11 @@
-"use strict";
-import dotenv from "dotenv";
-if (process.env.NODE_ENV !== "production") {
+'use strict';
+if (process.env.NODE_ENV !== 'production') {
+  const dotenv = await import('dotenv')
   dotenv.config();
 }
 
-import nodemailer from "nodemailer";
-import ejs from "ejs";
+import nodemailer from 'nodemailer';
+import ejs from 'ejs';
 /**
  * sendEmail
  * @param {Object} mailObj - Email information
@@ -20,7 +20,7 @@ const sendEmail = async (mailObj) => {
   try {
     // Create a transporter
     let transporter = nodemailer.createTransport({
-      host: "smtp-relay.sendinblue.com",
+      host: 'smtp-relay.sendinblue.com',
       port: 587,
       auth: {
         user: process.env.USER,
@@ -28,7 +28,7 @@ const sendEmail = async (mailObj) => {
       },
     });
     ejs.renderFile(
-      __dirname + "/../views/mail/contact.ejs",
+      __dirname + '/../views/mail/contact.ejs',
       {
         from,
         text,

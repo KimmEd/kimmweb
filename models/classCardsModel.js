@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 const classCardsLikeSchema = new mongoose.Schema({
   cardId: {
     type: mongoose.SchemaTypes.ObjectId,
@@ -18,56 +18,56 @@ const classCardsSchema = new mongoose.Schema({
   classId: {
     type: mongoose.SchemaTypes.ObjectId,
     required: true,
-    alias: "id",
+    alias: 'id',
   },
   cardType: {
     type: mongoose.SchemaTypes.String,
     required: true,
-    alias: "type",
-    enum: ["", "post", "comment"],
+    alias: 'type',
+    enum: ['', 'post', 'comment'],
   },
   content: {
     title: {
       type: mongoose.SchemaTypes.String,
       required: true,
-      minlength: [5, "Title must be at least 5 characters long, got {VALUE}"],
+      minlength: [5, 'Title must be at least 5 characters long, got {VALUE}'],
     },
     description: {
       type: mongoose.SchemaTypes.String,
       required: true,
       minlength: [
         5,
-        "Description must be at least 5 characters long, got {VALUE}",
+        'Description must be at least 5 characters long, got {VALUE}',
       ],
     },
     media: {
       type: mongoose.SchemaTypes.String,
       maxlength: 255,
       match: /([a-z\-_0-9/:.]*\.(jpg|jpeg|png|gif))/i,
-      alias: "image",
+      alias: 'image',
     },
     cardText: {
       type: mongoose.SchemaTypes.String,
       required: true,
       minlength: [
         10,
-        "Card text must be at least 10 characters long, got {VALUE}",
+        'Card text must be at least 10 characters long, got {VALUE}',
       ],
       maxlength: [
         1000,
-        "Card text must be at most 1000 characters long, got {VALUE}",
+        'Card text must be at most 1000 characters long, got {VALUE}',
       ],
-      alias: "text",
+      alias: 'text',
     },
   },
   authorId: {
     type: mongoose.SchemaTypes.ObjectId,
     required: true,
-    alias: "author",
+    alias: 'author',
   },
   timeStamp: {
     type: mongoose.SchemaTypes.Date,
-    alias: "time",
+    alias: 'time',
     default: Date.now,
   },
   likes: {
@@ -79,4 +79,4 @@ const classCardsSchema = new mongoose.Schema({
 classCardsSchema.statics.findByClassId = function (classId) {
   return this.find({ classId: classId });
 };
-export default mongoose.model("Class Cards", classCardsSchema);
+export default mongoose.model('Class Cards', classCardsSchema);
