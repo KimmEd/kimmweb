@@ -25,16 +25,14 @@ router.get('/about', getAbout);
 router
   .route('/login')
   .get(checkNotAuthenticated, getLogin)
-  .post(checkNotAuthenticated, postLogin);
+  .post(checkNotAuthenticated, postLogin)
+  .delete(checkAuthenticated, deleteLogin);
 
 router.route('/contact').get(getContact).post(postContact);
 
 router
   .route('/register')
   .get(checkNotAuthenticated, getRegister)
-  .post(checkNotAuthenticated, postRegister)
-  .delete(checkAuthenticated, deleteLogin);
-
-// router.delete("/logout", checkAuthenticated, deleteLogin);
+  .post(checkNotAuthenticated, postRegister);
 
 export default router;
