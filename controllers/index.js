@@ -1,8 +1,7 @@
+import bcrypt from 'bcrypt';
 import express from 'express';
 import passport from 'passport';
-import bcrypt from 'bcrypt';
 // import mongoose from "mongoose";
-
 import sendMailMethod from '../middleware/sendMail.js';
 import User from '../models/userModel.js';
 
@@ -68,7 +67,7 @@ export const postRegister = async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     let user = new User();
-    user.email = req.body.email;
+    user.email = req.body.email.toLowerCase();
     user.password = hashedPassword;
     user.username = req.body.username;
     await user.save();
@@ -80,6 +79,7 @@ export const postRegister = async (req, res) => {
 };
 
 export const deleteLogin = (req, res) => {
+  console.log('Logged out')
   req.logOut();
   res.redirect('/login');
 };

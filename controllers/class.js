@@ -424,7 +424,8 @@ export const getTodoAPI = (req, res) => {
 export const postTodoAPI = (req, res) => {
     const { todo } = req.body;
     console.log(todo);
-    if (todo.length == 0) return res.status(400).json({ error: 'No todo provided' });
+    if (todo.length == 0)
+        return res.status(400).json({ error: 'No todo provided' });
     User.findById(req.user.id).exec(async (err, user) => {
         if (err || !user)
             return res.status(404).json({ error: 'User not found' });
@@ -434,8 +435,8 @@ export const postTodoAPI = (req, res) => {
                 return res
                     .status(500)
                     .json({ display: 'Error saving todo', error: err.message });
+            res.json({ success: true });
         });
-        res.json({ success: true });
     });
 };
 
@@ -485,4 +486,6 @@ export const getClassAPI = (req, res) => {
         res.send(classObj);
     });
 };
+
+
 export default router;

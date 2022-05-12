@@ -1,5 +1,46 @@
+import moment from 'moment';
 import mongoose from 'mongoose';
-const  studysetSchema = new mongoose.Schema({
+
+const flashcardSchema = new mongoose.Schema({
+  term: {
+    type: mongoose.SchemaTypes.String,
+    required: true,
+    minlength: [
+      5,
+      'Flashcard term must be at least 5 characters long, got {VALUE}',
+    ],
+    maxlength: [
+      255,
+      'Flashcard term must be at most 255 characters long, got {VALUE}',
+    ],
+  },
+  definition: {
+    type: mongoose.SchemaTypes.String,
+    required: true,
+    minlength: [
+      5,
+      'Flashcard definition must be at least 5 characters long, got {VALUE}',
+    ],
+    maxlength: [
+      510,
+      'Flashcard definition must be at most 510 characters long, got {VALUE}',
+    ],
+  },
+  interchangeable: {
+    type: mongoose.SchemaTypes.Boolean,
+    default: false,
+  },
+  image: {
+    type: mongoose.SchemaTypes.String,
+  },
+  setAuthor: {
+    type: mongoose.SchemaTypes.ObjectId,
+    required: true,
+    alias: 'author',
+  },
+});
+
+const studysetSchema = new mongoose.Schema({
     name: {
       type: mongoose.SchemaTypes.String,
       required: true,
@@ -26,46 +67,7 @@ const  studysetSchema = new mongoose.Schema({
       ],
       alias: 'studySetDescription',
     },
-    flashcards: [
-      {
-        term: {
-          type: mongoose.SchemaTypes.String,
-          required: true,
-          minlength: [
-            5,
-            'Flashcard term must be at least 5 characters long, got {VALUE}',
-          ],
-          maxlength: [
-            255,
-            'Flashcard term must be at most 255 characters long, got {VALUE}',
-          ],
-        },
-        definition: {
-          type: mongoose.SchemaTypes.String,
-          required: true,
-          minlength: [
-            5,
-            'Flashcard definition must be at least 5 characters long, got {VALUE}',
-          ],
-          maxlength: [
-            510,
-            'Flashcard definition must be at most 510 characters long, got {VALUE}',
-          ],
-        },
-        interchangeable: {
-          type: mongoose.SchemaTypes.Boolean,
-          default: false,
-        },
-        image: {
-          type: mongoose.SchemaTypes.String,
-        },
-        setAuthor: {
-          type: mongoose.SchemaTypes.ObjectId,
-          required: true,
-          alias: 'author',
-        },
-      },
-    ],
+    flashcards: { type: [flashcardSchema], default: [] },
   }),
   classSchema = new mongoose.Schema({
     className: {
@@ -138,16 +140,6 @@ const  studysetSchema = new mongoose.Schema({
       default: false,
       alias: 'deleted',
     },
-    classCreatedAt: {
-      type: mongoose.SchemaTypes.Date,
-      default: Date.now,
-      alias: 'createdAt',
-    },
-    classUpdatedAt: {
-      type: mongoose.SchemaTypes.Date,
-      default: Date.now,
-      alias: 'updatedAt',
-    },
     classDays: {
       type: [mongoose.SchemaTypes.String],
       alias: 'days',
@@ -162,10 +154,14 @@ const  studysetSchema = new mongoose.Schema({
       default: 'en',
       alias: 'language',
     },
-  });
+  }, { timestamps: true });
 
 classSchema.virtual('classStudentsCount').get(function () {
   return this.classStudents.length;
+});
+
+classSchema.virtual('lastUpdatedPretty').get(function () {
+  return moment(this.updatedAt).fromNow();
 });
 
 export default mongoose.model('Classes', classSchema);

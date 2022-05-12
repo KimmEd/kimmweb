@@ -1,19 +1,19 @@
 import express from 'express';
+import { getCalendar, getClasses, getHub, getToDo } from '../controllers/class.js';
+import { checkAuthenticated } from '../middleware/checkAuth.js';
+import classRoute from './classRouter.js';
 const router = express.Router();
 
-import { checkAuthenticated } from '../middleware/checkAuth.js';
-import { getHub, getToDo, getCalendar, getClasses } from '../controllers/class.js';
 router.use(checkAuthenticated);
 
 router.get('/', getHub);
 
-router.get('/classes', getClasses);
+router.get('/:id/classes', getClasses);
 
-router.get('/todo', getToDo);
+router.get('/:id/todo', getToDo);
 
-router.get('/calendar', getCalendar);
+router.get('/:id/calendar', getCalendar);
 
-import classRoute from './classRouter.js';
 router.use('/class', classRoute);
 
 export default router;

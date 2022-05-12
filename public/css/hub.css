@@ -6,6 +6,12 @@
     transition: display 0.4s ease 0s;
 }
 
+.sidebar a {
+  color:rgb(0, 0, 0);
+  display: block;
+  padding: .8em 1.2em;
+}
+
 .btn-hub {
     align-items: flex-start;
     text-indent: 0px;

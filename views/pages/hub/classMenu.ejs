@@ -19,12 +19,13 @@
               <img
                 class="card__thumb"
                 src="/img/logo.png" 
-                alt="<%- element.owner.username %> Avatar"
+                <% // Alt = element.owner.username %> 
+                alt="Avatar"
               />
               <div class="card__header-text">
                 <h3 class="card__title"><%- element.className %></h3>
                 <span class="card__status"
-                  ><%- element.lastUpdated || 'Data not available' %></span
+                  ><%- element.lastUpdatedPretty || 'Data not available' %></span
                 >
               </div>
             </div>

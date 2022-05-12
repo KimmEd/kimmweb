@@ -48,7 +48,7 @@
   margin-top: 1.875em;
 }
 
-@media screen and (min-with: 601px) {
+@media (min-with: 601px) {
   #activity-title {
     font-size: 2.5em;
   }
@@ -64,7 +64,7 @@
   }
 }
 
-@media screen and (max-width: 600) {
+@media (max-width: 600) {
   #activity-title {
     font-size: 1.5em;
   }
@@ -82,7 +82,7 @@
   }
 }
 
-@media screen and (min-with: 800px) {
+@media (min-with: 800px) {
   #activity-title {
     font-size: 3em;
   }
