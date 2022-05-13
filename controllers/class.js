@@ -462,9 +462,10 @@ export const getTodoAPI = (req, res) => {
 
 export const postTodoAPI = (req, res) => {
     const { todo } = req.body;
-    console.log(todo);
     if (todo.length == 0)
         return res.status(400).json({ error: 'No todo provided' });
+    if (todo.some(t => t.taskName.length < 5)) 
+        return res.status(400).json({ error: 'Todo must be at least 5 characters long' });
     User.findById(req.user.id).exec(async (err, user) => {
         if (err || !user)
             return res.status(404).json({ error: 'User not found' });
@@ -478,6 +479,24 @@ export const postTodoAPI = (req, res) => {
         });
     });
 };
+
+export const deleteTodoAPI = (req, res) => {
+    const { todoId } = req.body;
+    if (!mongoose.Types.ObjectId.isValid(todoId))
+        return res.status(400).json({ error: 'Invalid todo id' });
+    User.findById(req.user.id).exec(async (err, user) => {
+        if (err || !user)
+            return res.status(404).json({ error: 'User not found' });
+        user.progress.todo.id(todoId).remove();
+        await user.save((err) => {
+            if (err)
+                return res
+                    .status(500)
+                    .json({ display: 'Error deleting todo', error: err.message });
+            res.json({ success: true });
+        });
+    });
+}
 
 /**
  *

@@ -1,5 +1,6 @@
 import express from 'express';
 import {
+    deleteTodoAPI,
     getClassAPI,
     getStudysetAPI,
     getTodoAPI,
@@ -16,7 +17,7 @@ router
     // TODO: Work on post studyset to submit scores.
     .post(postStudysetScoreAPI);
 // TODO: Work on get todo to get todo list.
-router.route('/v1/user/:id/todo').get(getTodoAPI).post(postTodoAPI).patch(patchTodoAPI);
+router.route('/v1/user/:id/todo').get(getTodoAPI).post(postTodoAPI).patch(patchTodoAPI).delete(deleteTodoAPI);
 
 router.get('/v1/class', getClassAPI);
 

@@ -152,8 +152,8 @@ userSchema
     })
     .set(function (todo) {
         if (Array.isArray(todo)) 
-            todo.forEach((todo) => this.progress.todo.push(todo))
-        else this.progress.todo.push(todo);
+            todo.forEach((todo) => this.progress.todo.unshift(todo))
+        else this.progress.todo.unshift(todo);
     });
 
 todoSchema.virtual('edit').set(function (todo) {

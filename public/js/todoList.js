@@ -9,7 +9,8 @@ class Todo_Class {
     add() {
         const todoInput = document.querySelector('#todo-input');
         const todoValue = todoInput.value;
-        if (todoValue == '') return alert('Please enter a value');
+        if (todoValue == '' || todoValue.length < 5 || todoValue > 50)
+            return alert('Please enter a value between 5 and 50 characters');
         else {
             const todoObject = {
                 taskName: todoValue,
@@ -27,6 +28,7 @@ class Todo_Class {
         const selectedTodoIndex = todoObjectList.findIndex(
             (item) => item.index == e,
         );
+        if (selectedTodoIndex < 0) return;
         todoObjectList[selectedTodoIndex].taskStatus = todoObjectList[
             selectedTodoIndex
         ].taskStatus
@@ -38,7 +40,20 @@ class Todo_Class {
         const selectedDelIndex = todoObjectList.findIndex(
             (item) => item.index == e,
         );
+        let todoId = todoObjectList[selectedDelIndex]._id;
         todoObjectList.splice(selectedDelIndex, 1);
+        fetch(`/api/v1/user/${id}/todo`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ todoId: todoId }),
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => console.log(data));
+        savedTodoList = [...todoObjectList];
         this.display();
     }
     display() {
@@ -82,6 +97,10 @@ let savedTodoList;
 (async () => {
     let todoListRaw = await fetch(`/api/v1/user/${id}/todo`);
     savedTodoList = await todoListRaw.json();
+    // Add index attribute to each object
+    savedTodoList.forEach((item, index) => {
+        item.index = index;
+    });
     todoObjectList.push(...savedTodoList);
     myTodoList.display();
 })();
@@ -103,6 +122,7 @@ let intervalId = setInterval(function () {
         let xhr = new XMLHttpRequest();
         xhr.open('POST', `/api/v1/user/${id}/todo`);
         xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onload = (e) => console.log(e.target.responseText);
         xhr.send(JSON.stringify({ todo: todoToUpload }));
         savedTodoList = [...todoObjectList];
     }
