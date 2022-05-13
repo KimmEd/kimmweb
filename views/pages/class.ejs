@@ -105,10 +105,11 @@
         <h3>Feedback</h3>
         <div class="container">
           <form action="/hub/class/id/<%- classroom._id %>/feedback" method="post">
-            <button type="submit" name="res" value="bad" class="red"></button>
-            <button type="submit" name="res" value="not bad" class="orange"></button>
-            <button type="submit" name="res" value="fine" class="light-green"></button>
-            <button type="submit" name="res" value="good" class="green"></button>
+            <button type="submit" name="feedback" value="0" class="red"></button>
+            <button type="submit" name="feedback" value="1" class="orange"></button>
+            <button type="submit" name="feedback" value="2" class="yellow" style="background-color:yellow;"></button>
+            <button type="submit" name="feedback" value="3" class="light-green"></button>
+            <button type="submit" name="feedback" value="4" class="green"></button>
           </form>
         </div>
       </div>

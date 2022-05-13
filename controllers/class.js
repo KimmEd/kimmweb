@@ -288,8 +288,47 @@ export const createPost = (req, res) => {
 export const postFeedback = (req, res) => {
     const { id } = req.params;
     console.log(req.body);
-    req.flash('success', 'Feedback submitted, value: ' + req.body.res);
-    res.redirect(`/hub/class/id/${id}`);
+    /** Get feedback with target.objectType, target.objectId, score & author */
+    const { feedback } = req.body;
+    if (!feedback) {
+        req.flash('error', 'No feedback provided');
+        return res.redirect(`/hub/class/id/${id}`);
+    }
+    let score = parseInt(feedback);
+    if (isNaN(score) || score < 0 || score > 5) {
+        req.flash('error', 'Invalid score');
+        return res.redirect(`/hub/class/id/${id}`);
+    }
+
+    Classrooms.findById(id).exec((err, classroom) => {
+        if (err || !classroom) {
+            req.flash('error', 'Class not found');
+            return res.redirect('/hub');
+        }
+        if (
+            classroom.classFeedback.some(
+                (feedback) => feedback.author.toString() === req.user.id,
+            )
+        ) {
+            req.flash('error', 'You have already submitted feedback');
+            return res.redirect(`/hub/class/id/${id}`);
+        }
+
+        classroom.classFeedback.push({
+            feedbackType: 'classroom',
+            targetId: id,
+            score: Math.min(score * 25, 100),
+            author: req.user.id,
+        });
+        classroom.save((err) => {
+            if (err) {
+                console.log(err);
+                req.flash('error', 'Error adding feedback');
+            } else req.flash('success', 'Feedback added');
+
+            res.redirect(`/hub/class/id/${id}`);
+        });
+    });
 };
 
 export const getStudysetByClass = (req, res) => {
@@ -486,6 +525,5 @@ export const getClassAPI = (req, res) => {
         res.send(classObj);
     });
 };
-
 
 export default router;
