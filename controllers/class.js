@@ -7,8 +7,8 @@ import User from '../models/userModel.js';
 const router = express.Router();
 
 export const getStudysetAPI = (req, res) => {
-    const { uid, sid } = req.params;
-    Classrooms.findById(uid).exec((err, classObj) => {
+    const { userId, setId } = req.params;
+    Classrooms.findById(userId).exec((err, classObj) => {
         if (err || !classObj) {
             return res.status(404).json({
                 message: 'Class not found',
@@ -21,7 +21,7 @@ export const getStudysetAPI = (req, res) => {
                 });
             } else {
                 const studySet = classObj.studysets.filter(
-                    (studySet) => studySet._id.toString() === sid,
+                    (studySet) => studySet._id.toString() === setId,
                 )[0];
                 return res.status(200).json({
                     studySet,
@@ -284,10 +284,8 @@ export const createPost = (req, res) => {
     }
 };
 
-// TODO: Feedback
 export const postFeedback = (req, res) => {
     const { id } = req.params;
-    console.log(req.body);
     /** Get feedback with target.objectType, target.objectId, score & author */
     const { feedback } = req.body;
     if (!feedback) {
@@ -427,18 +425,17 @@ export const displayStudyset = (req, res) => {
 };
 
 export const postStudysetScoreAPI = (req, res) => {
-    // TODO: Plan how to handle this (update user model)
-    const { uid, sid } = req.params;
-    const { score } = req.body;
+    const { userId, setId } = req.params;
+    const { flashcardScore } = req.body;
     if (
-        !mongoose.Types.ObjectId.isValid(uid) ||
-        !mongoose.Types.ObjectId.isValid(sid)
+        !mongoose.Types.ObjectId.isValid(userId) ||
+        !mongoose.Types.ObjectId.isValid(setId)
     )
-        return res.status(404).json({ message: 'User or study set not found' });
-    User.findById(uid).exec((err, user) => {
+        return res.status(404).json({ message: 'User or study set id is not valid' });
+    User.findById(userId).exec((err, user) => {
         if (err || !user)
-            return res.status(404).json({ message: 'User not found' });
-        user.flashcardProgress = score;
+            return res.status(404).json({ message: 'User not found', error: err, user: user });
+        user.flashcardProgress = flashcardScore;
         user.save((err) => {
             if (err)
                 return res
@@ -492,7 +489,7 @@ export const deleteTodoAPI = (req, res) => {
             if (err)
                 return res
                     .status(500)
-                    .json({ display: 'Error deleting todo', error: err.message });
+                    .json({ error: 'Error deleting todo', ext: err.message });
             res.json({ success: true });
         });
     });
@@ -516,7 +513,6 @@ export const patchTodoAPI = (req, res) => {
         user.progress.todo.id(todo._id).exec((err, todoObject) => {
             if (err || !todoObject)
                 return res.status(404).json({ error: 'Todo not found' });
-            console.log('Changing todo...');
             switch (action) {
                 case 'STATUS':
                     todoObject.status = todo.status;

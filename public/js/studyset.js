@@ -4,77 +4,102 @@ const [id, _, studySetId] = window.location.pathname.split('/').slice(-3);
 let qBank = [],
     showingCard = true,
     currentQuestion = 0,
-    playingSet = true;
+    playingSet = true,
+    flashcardScoreData = [];
 
 getStudyset().then((studySet) => {
     const { name, description, flashcards } = studySet;
     let shuffledFlashcards = shuffleArray(flashcards);
     shuffledFlashcards.forEach((flashcard) => {
         qBank.push({
+            id: flashcard._id,
             question: flashcard.term,
             definition: flashcard.definition,
             interchangeable: flashcard.interchangeable,
         });
     });
 
-    beginActivity();
-
-    function beginActivity() {
-        // Set up the layout
-        document.getElementById('activity-title').innerHTML = name;
-        document.getElementById('studyset-description').innerHTML = description;
-
-        // Set up rotating color.
-        let [colorTerm, colorDefinition] = colorSelector();
-
-        const cardArea = document.getElementById('card-area');
-        cardArea.style.backgroundColor = colorTerm;
-        cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].question}</div>`;
-        cardArea.addEventListener('click', () => {
-            if (!playingSet) return;
-            if (showingCard) {
-                cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].definition}</div>`;
-                cardArea.style.backgroundColor = colorDefinition;
-                showingCard = false;
-            } else {
-                cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].question}</div>`;
-                cardArea.style.backgroundColor = colorTerm;
-                showingCard = true;
-            }
-        });
-
-        let nextButton = document.createElement('button');
-        nextButton.innerText = 'Next';
-        nextButton.addEventListener('click', () => {
-            currentQuestion++;
-            if (currentQuestion >= qBank.length) {
-                playingSet = false;
-                displayFinalMessage();
-            } else {
-                cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].question}</div>`;
-                [colorTerm, colorDefinition] = colorSelector();
-                cardArea.style.backgroundColor = colorTerm;
-                showingCard = true;
-            }
-        });
-        document.getElementById('button-area').appendChild(nextButton);
-
-        function displayFinalMessage() {
-            let buttonArea = document.getElementById('button-area');
-            while (buttonArea.hasChildNodes()) {
-                buttonArea.removeChild(buttonArea.lastChild);
-            }
-            document.getElementById('card-area').innerHTML = '';
-            let finalMessage = document.createElement('div');
-            finalMessage.id = 'final-message';
-            finalMessage.innerHTML = 'You have completed the study set!';
-            document.getElementById('card-area').appendChild(finalMessage);
-        }
-
-        // cardArea.append('<div id="card1" class="card">' + qBank[currentQuestion].question + '</div>')
-        // cardArea.append('<div id="card2" class="card">' + qBank[currentQuestion].answer + '</div>')
-    }
+    beginActivity({ name, description });
 });
+
+// eslint-disable-next-line no-unused-vars
+function score({ id, score }) {
+    let scoreData = {
+        flashcardId: id,
+        score,
+    };
+    flashcardScoreData.push(scoreData);
+}
+
+function beginActivity({ name, description }) {
+    // Set up the layout
+    document.getElementById('activity-title').innerHTML = name;
+    document.getElementById('studyset-description').innerHTML = description;
+
+    // Set up rotating color.
+    let [colorTerm, colorDefinition] = colorSelector();
+
+    const cardArea = document.getElementById('card-area');
+    cardArea.style.backgroundColor = colorTerm;
+    cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].question}</div>`;
+    cardArea.addEventListener('click', () => {
+        if (!playingSet) return;
+        if (showingCard) {
+            cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].definition}</div>`;
+            cardArea.style.backgroundColor = colorDefinition;
+            showingCard = false;
+        } else {
+            cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].question}</div>`;
+            cardArea.style.backgroundColor = colorTerm;
+            showingCard = true;
+        }
+    });
+
+    // Set up the buttons: [Again, red], [Hard, yellow], [Good, green], [Easy, blue]
+    const buttonArea = document.getElementById('button-area');
+    [
+        ['again', 'red', 0],
+        ['hard', 'orange', 1],
+        ['good', 'green', 2],
+        ['easy', 'blue', 3],
+    ].forEach((button) => {
+        const buttonElement = document.createElement('button');
+        buttonElement.classList.add('btn');
+        buttonElement.style.backgroundColor = button[1];
+        buttonElement.innerHTML =
+            button[0].charAt(0).toUpperCase() + button[0].slice(1);
+        buttonElement.addEventListener('click', () => {
+            buttonAction();
+            score({ id: qBank[currentQuestion], score: button[2] });
+        });
+        buttonArea.appendChild(buttonElement);
+    });
+    const buttonAction = () => {
+        currentQuestion++;
+        if (currentQuestion >= qBank.length) {
+            playingSet = false;
+            displayFinalMessage();
+        } else {
+            cardArea.innerHTML = `<div class="card-text">${qBank[currentQuestion].question}</div>`;
+            [colorTerm, colorDefinition] = colorSelector();
+            cardArea.style.backgroundColor = colorTerm;
+            showingCard = true;
+        }
+    };
+
+    function displayFinalMessage() {
+        let buttonArea = document.getElementById('button-area');
+        while (buttonArea.hasChildNodes()) {
+            buttonArea.removeChild(buttonArea.lastChild);
+        }
+        document.getElementById('card-area').innerHTML = '';
+        let finalMessage = document.createElement('div');
+        finalMessage.id = 'final-message';
+        finalMessage.innerHTML = 'You have completed the study set!';
+        postStudysetScore();
+        document.getElementById('card-area').appendChild(finalMessage);
+    }
+}
 
 async function getStudyset() {
     let studysetRaw = await fetch(
@@ -85,19 +110,23 @@ async function getStudyset() {
     return studySet;
 }
 
-// eslint-disable-next-line no-unused-vars
-async function postStudysetScore(score) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', `/api/v1/user/${id}/studyset/${studySetId}/study`);
-
-    xhr.setRequestHeader('Accept', 'application/json');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-
-    xhr.onload = () => console.log(xhr.responseText);
-
-  let jsonScore = JSON.stringify(score)
-
-    xhr.send(jsonScore);
+async function postStudysetScore() {
+    fetch(`/api/v1/user/${id}/studyset/${studySetId}/study`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            flashcardScore: {
+                studysetId: studySetId,
+                flashcardData: flashcardScoreData,
+            },
+        }),
+    })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => console.log(data));
 }
 
 function shuffleArray(arr) {
@@ -111,12 +140,5 @@ function shuffleArray(arr) {
 
 function colorSelector() {
     const KIMM_SWATCH = ['#39A2A5', '#57CC98', '#80EA98'];
-    let colorTerm = KIMM_SWATCH[Math.floor(Math.random() * KIMM_SWATCH.length)],
-        colorDefinition =
-            KIMM_SWATCH[Math.floor(Math.random() * KIMM_SWATCH.length)];
-    while (colorTerm === colorDefinition) {
-        colorDefinition =
-            KIMM_SWATCH[Math.floor(Math.random() * KIMM_SWATCH.length)];
-    }
-    return [colorTerm, colorDefinition];
+    return [KIMM_SWATCH[0], KIMM_SWATCH[1]];
 }

@@ -115,13 +115,9 @@ const userSchema = new mongoose.Schema({
                             type: mongoose.ObjectId,
                             required: [true, 'Flashcard ID is required'],
                         },
-                        correct: {
-                            type: mongoose.Schema.Types.Decimal128,
-                            default: 0,
-                        },
-                        incorrect: {
-                            type: mongoose.Schema.Types.Decimal128,
-                            default: 0,
+                        score: {
+                            type: Number,
+                            required: [true, 'Score is required'],
                         },
                     },
                 ],
