@@ -16,6 +16,7 @@ import {
   getRegister,
   postRegister,
   deleteLogin,
+  getGame,
 } from '../controllers/index.js';
 
 router.get('/', getHome);
@@ -34,5 +35,7 @@ router
   .route('/register')
   .get(checkNotAuthenticated, getRegister)
   .post(checkNotAuthenticated, postRegister);
+
+router.get('/game', getGame)
 
 export default router;

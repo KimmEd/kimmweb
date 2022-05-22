@@ -83,4 +83,8 @@ export const deleteLogin = (req, res) => {
   req.logOut();
   res.redirect('/login');
 };
+
+export const getGame = (req, res) => {
+  res.render('pages/main/game');
+};
 export default router;

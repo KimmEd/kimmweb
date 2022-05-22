@@ -1,46 +1,46 @@
 <header>
-  <div style="display: flex; align-items: center">
-    <a href="/">
-      <img src="/img/logo.png" alt="LOGO" />
-    </a>
-    <nav class="">
-        <div class="">
-          <ul>
-            <li class="nav-item">
-              <a class="nav-link" href="/about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/hub">Hub</a>
-            </li>
-            <li class="nav-iten">
-              <a href="/pricing" class="nav-link" disabled>Pricing</a>
-            </li>
-            <li class="nav-iten">
-              <a href="/play" class="nav-link" aria-disabled="true" disabled>Kimm Games</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/contact">Contact Us</a>
-            </li>
-          </ul>
-      </div>
-    </nav>
-  </div>
-  <div style="align-items: right; padding: 10px; display: flex">
-    <div class="container">
-      <% if (login) { %>
-      <form action="/login?_method=DELETE" method="post">
-        <button type="submit" rel="nofollow">Logout</button>
-      </form>
-      <% } else { %>
-      <form action="/login" method="get">
-        <button type="submit" rel="nofollow">Login!</button>
-      </form>
+    <div style="display: flex; align-items: center">
+        <a href="/">
+            <img src="/img/logo.png" alt="LOGO" />
+        </a>
+        <nav class="">
+            <div class="">
+                <ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/hub">Hub</a>
+                    </li>
+                    <li class="nav-iten">
+                        <a href="/pricing" class="nav-link" disabled>Pricing</a>
+                    </li>
+                    <li class="nav-iten">
+                        <a href="/game" class="nav-link">Kimm Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
-    <div class="container">
-      <form action="/register" method="get">
-        <button type="submit" rel="nofollow">Register</button>
-      </form>
-      <% } %>
+    <div style="align-items: right; padding: 10px; display: flex">
+        <div class="container">
+            <% if (login) { %>
+            <form action="/login?_method=DELETE" method="post">
+                <button type="submit" rel="nofollow">Logout</button>
+            </form>
+            <% } else { %>
+            <form action="/login" method="get">
+                <button type="submit" rel="nofollow">Login!</button>
+            </form>
+        </div>
+        <div class="container">
+            <form action="/register" method="get">
+                <button type="submit" rel="nofollow">Register</button>
+            </form>
+            <% } %>
+        </div>
     </div>
-  </div>
 </header>
