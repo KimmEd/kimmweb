@@ -69,7 +69,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        match: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
+        match: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         unique: true,
     },
     password: {
@@ -147,8 +147,8 @@ userSchema
         return this.progress.todo;
     })
     .set(function (todo) {
-        if (Array.isArray(todo)) 
-            todo.forEach((todo) => this.progress.todo.unshift(todo))
+        if (Array.isArray(todo))
+            todo.forEach((todo) => this.progress.todo.unshift(todo));
         else this.progress.todo.unshift(todo);
     });
 
