@@ -65,6 +65,9 @@ export const getRegister = (req, res) => {
 
 export const postRegister = async (req, res) => {
   try {
+    if (req.body.password !== req.body.confirmPassword) {
+      throw new Error('Passwords do not match', { cause: 400 });
+    }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     let user = new User();
     user.email = req.body.email.toLowerCase();
