@@ -35,7 +35,7 @@ export const postContact = async (req, res) => {
   try {
     const { name, email, message } = req.body;
     if (!name || !email || !message) {
-      throw new Error('Please fill all the fields', { cause: 400 });
+      throw new Error('Please fill all the fields');
     }
     await sendMailMethod({
       from: email,
@@ -66,7 +66,7 @@ export const getRegister = (req, res) => {
 export const postRegister = async (req, res) => {
   try {
     if (req.body.password !== req.body.confirmPassword) {
-      throw new Error('Passwords do not match', { cause: 400 });
+      throw new Error('Passwords do not match');
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     let user = new User();
